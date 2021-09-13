@@ -41,7 +41,7 @@ Add the following flags for granular control:
 
 ```shell
 docker run -v $PWD:/usr/share/repo tomerfi/version-bumper:latest \
---changelog --label .dev --preset conventionalcommits
+--changelog true --label .dev --preset conventionalcommits
 ```
 
 > Tip: other than `conventionalcommits`, possible prest values can be found [here][5].

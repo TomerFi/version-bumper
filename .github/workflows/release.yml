@@ -51,7 +51,7 @@ jobs:
 
       - name: Eat your own dogfood
         id: version_info
-        run: echo "::set-output name=next_version::$(bash entrypoint.sh --changelog | cut -f1 -d" ")"
+        run: echo "::set-output name=next_version::$(bash entrypoint.sh --changelog true | cut -f1 -d" ")"
 
       - name: Get current date
         id: current_date
