@@ -104,6 +104,7 @@ jobs:
 
   announce:
     runs-on: ubuntu-latest
+    environment: deployment
     name: Announce new release
     needs: [publish, release]
     steps:
