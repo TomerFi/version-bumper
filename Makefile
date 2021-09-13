@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-default: build
+default: build-multi
 
 VERSION ?= dev
 
@@ -23,11 +23,20 @@ FULL_IMAGE_NAME = $(strip $(IMAGE_NAME):$(VERSION))
 
 PLATFORMS = linux/amd64,linux/arm/v7
 
-build:
+build-multi:
 	docker buildx build \
 	--build-arg VCS_REF=$(GIT_COMMIT) \
 	--build-arg BUILD_DATE=$(CURRENT_DATE) \
 	--build-arg VERSION=$(VERSION) \
 	--platform $(PLATFORMS) \
+	--tag $(FULL_IMAGE_NAME) \
+	--tag $(IMAGE_NAME):latest .
+
+build-single:
+	docker buildx build \
+	--build-arg VCS_REF=$(GIT_COMMIT) \
+	--build-arg BUILD_DATE=$(CURRENT_DATE) \
+	--build-arg VERSION=$(VERSION) \
+    --output type=docker \
 	--tag $(FULL_IMAGE_NAME) \
 	--tag $(IMAGE_NAME):latest .
