@@ -30,7 +30,7 @@ show_usage() {
   echo "  defaults to 'conventionalcommits'"
   echo ""
   echo "Full example:"
-  echo "--label .dev --changelog --preset conventionalcommits"
+  echo "--label .dev --changelog true --preset conventionalcommits"
   echo ""
   echo "Output when the latest tag is 2.1.16 will be:"
   echo "2.1.17 2.1.18.dev"
@@ -53,11 +53,7 @@ increment() { echo $(("$1" + 1)); }
 while [ $# -gt 0 ]; do
   if [[ $1 == *"--"* ]]; then
     param="${1/--/}"
-    if [[ $param == "changelog" ]]; then
-      declare $param="true"
-    else
-      declare $param="$2"
-    fi
+    declare $param="$2"
   fi
   shift
 done
