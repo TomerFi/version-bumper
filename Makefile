@@ -25,19 +25,19 @@ FULL_IMAGE_NAME = $(strip $(IMAGE_NAME):$(VERSION))
 PLATFORMS = linux/amd64,linux/arm/v7,linux/arm64/v8
 
 single:
-	docker buildx build \
-	--build-arg VCS_REF=$(GIT_COMMIT) \
-	--build-arg BUILD_DATE=$(CURRENT_DATE) \
-	--build-arg VERSION=$(VERSION) \
+    docker buildx build \
+    --build-arg VCS_REF=$(GIT_COMMIT) \
+    --build-arg BUILD_DATE=$(CURRENT_DATE) \
+    --build-arg VERSION=$(VERSION) \
     --output type=docker \
-	--tag $(FULL_IMAGE_NAME) \
-	--tag $(IMAGE_NAME):latest .
+    --tag $(FULL_IMAGE_NAME) \
+    --tag $(IMAGE_NAME):latest .
 
 multi:
-	docker buildx build \
-	--build-arg VCS_REF=$(GIT_COMMIT) \
-	--build-arg BUILD_DATE=$(CURRENT_DATE) \
-	--build-arg VERSION=$(VERSION) \
-	--platform $(PLATFORMS) \
-	--tag $(FULL_IMAGE_NAME) \
-	--tag $(IMAGE_NAME):latest .
+    docker buildx build \
+    --build-arg VCS_REF=$(GIT_COMMIT) \
+    --build-arg BUILD_DATE=$(CURRENT_DATE) \
+    --build-arg VERSION=$(VERSION) \
+    --platform $(PLATFORMS) \
+    --tag $(FULL_IMAGE_NAME) \
+    --tag $(IMAGE_NAME):latest .
