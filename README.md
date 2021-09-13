@@ -2,7 +2,8 @@
 
 [![license-badge]][1] [![gh-build-status]][2]
 
-Containerized scripts for automating the next semantic version for a git repository based on existing tags and [conventional commits][3].
+Containerized scripts for automating the next semantic version for</br>
+a git repository based on existing tags and [conventional commits][3].
 
 ## Run
 
@@ -12,8 +13,9 @@ docker run -v $PWD:/usr/share/repo tomerfi/version-bumper:latest
 
 ## Example outcome
 
-If the latest [semantic][4] tag, in a git repository is, for instance, `2.1.6`.
-The following table illustrates the outcome based on the required bump identified from [commit][3] messages:
+If the latest [semantic][4] tag, in a git repository is, for instance, `2.1.6`.</br>
+The following table illustrates the outcome based on the required bump,</br>
+identified from [commit][3] messages:
 
 | Required bump | Outcome         |
 | ------------- | --------------- |
@@ -21,7 +23,7 @@ The following table illustrates the outcome based on the required bump identifie
 | minor         | 2.2.0 2.2.1.dev |
 | patch         | 2.1.7 2.1.8.dev |
 
-> Tip: split the outcome using the space char to separate the next version from the next development iteration.
+> Tip: split the outcome using the space char to separate</br>the next version from the next development iteration.
 
 ## Options
 
