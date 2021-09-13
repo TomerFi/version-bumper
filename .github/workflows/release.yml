@@ -81,7 +81,7 @@ jobs:
         with:
           name: changelog
 
-    - name: Release to GitHub
+      - name: Release to GitHub
         id: gh_release
         uses: ncipollo/release-action@v1.8.8
         with:
