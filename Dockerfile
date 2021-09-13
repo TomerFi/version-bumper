@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM node:16.9.0-slim
+FROM node:16.9.0-bullseye-slim
 
 RUN apt update \
     && apt install -y git \
@@ -26,7 +26,7 @@ RUN npm i -g \
 
 COPY . /usr/local/scripts
 
-VOLUME /usr/share/repo
+WORKDIR /usr/share/repo
 
 ENTRYPOINT ["/bin/bash", "/usr/local/scripts/entrypoint.sh"]
 

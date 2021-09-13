@@ -12,31 +12,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-default: build-multi
+default: single
 
-VERSION ?= dev
+# dogfooding
+VERSION = $(strip $(shell bash entrypoint.sh | cut -f1 -d" "))
 
 IMAGE_NAME = tomerfi/version-bumper
 GIT_COMMIT = $(strip $(shell git rev-parse --short HEAD))
 CURRENT_DATE = $(strip $(shell date -u +"%Y-%m-%dT%H:%M:%SZ"))
 FULL_IMAGE_NAME = $(strip $(IMAGE_NAME):$(VERSION))
 
-PLATFORMS = linux/amd64,linux/arm/v7
+PLATFORMS = linux/amd64,linux/arm/v7,linux/arm64/v8
 
-build-multi:
-	docker buildx build \
-	--build-arg VCS_REF=$(GIT_COMMIT) \
-	--build-arg BUILD_DATE=$(CURRENT_DATE) \
-	--build-arg VERSION=$(VERSION) \
-	--platform $(PLATFORMS) \
-	--tag $(FULL_IMAGE_NAME) \
-	--tag $(IMAGE_NAME):latest .
-
-build-single:
+single:
 	docker buildx build \
 	--build-arg VCS_REF=$(GIT_COMMIT) \
 	--build-arg BUILD_DATE=$(CURRENT_DATE) \
 	--build-arg VERSION=$(VERSION) \
     --output type=docker \
+	--tag $(FULL_IMAGE_NAME) \
+	--tag $(IMAGE_NAME):latest .
+
+multi:
+	docker buildx build \
+	--build-arg VCS_REF=$(GIT_COMMIT) \
+	--build-arg BUILD_DATE=$(CURRENT_DATE) \
+	--build-arg VERSION=$(VERSION) \
+	--platform $(PLATFORMS) \
 	--tag $(FULL_IMAGE_NAME) \
 	--tag $(IMAGE_NAME):latest .
