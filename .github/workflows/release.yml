@@ -10,7 +10,7 @@ env:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    environment: depolyment
+    environment: deployment
     name: Build and publish to Docker Hub
     outputs:
       new_version: ${{ steps.version_info.outputs.next_version  }}
