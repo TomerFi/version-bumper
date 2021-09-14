@@ -133,3 +133,4 @@ dmypy.json
 ##########################
 CHANGELOG.md
 release-context.json
+version-bumper-output

@@ -28,6 +28,8 @@ show_usage() {
   echo "  defaults to 'false'"
   echo "--preset, Optionally set the preset for creating the change log"
   echo "  defaults to 'conventionalcommits'"
+  echo "--outputtype, can be either 'stdout' or 'file', file name is 'version-bumper-output'"
+  echo "  defaults to 'stdout'"
   echo ""
   echo "Full example:"
   echo "--label .dev --changelog true --preset conventionalcommits"
@@ -62,6 +64,7 @@ done
 label=$(echo "${label:-.dev}" | xargs)
 changelog=${changelog:-false}
 preset=${preset:-conventionalcommits}
+outputtype=${outputtype:-stdout}
 
 # verify git repository
 if [ ! $(git rev-parse --is-inside-work-tree 2>&1) ]; then
@@ -140,4 +143,14 @@ fi
 ############################### Output Results ###############################
 ##############################################################################
 
-echo $new_version $next_iteration
+if [ $outputtype = "stdout" ]; then
+  echo $new_version $next_iteration
+elif [ $outputtype = "file" ]; then
+  echo $new_version $next_iteration > version-bumper-output
+else
+  echo "unknown output-type"
+  show_usage
+  exit 1
+fi
+
+exit 0
