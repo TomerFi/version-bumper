@@ -29,12 +29,13 @@ identified from [commit][3] messages:
 
 Add the following flags for granular control:
 
-| Flag         | Function                                        | Default               |
-| ------------ | ----------------------------------------------- | --------------------- |
-| --changelog  | also create a CHANGELOG.md file.                | `false`               |
-| --label      | set the label for the development iteration.    | `.dev`                |
-| --preset     | set the preset for the changelog file.          | `conventionalcommits` |
-| --outputtype | the output type of the outcome, `stdout`/`file` | `stdout`              |
+| Flag         | Function                                         | Default               |
+| ------------ | ------------------------------------------------ | --------------------- |
+| --changelog  | also create a CHANGELOG.md file.                 | `false`               |
+| --label      | set the label for the development iteration.     | `.dev`                |
+| --preset     | set the preset for the changelog file.           | `conventionalcommits` |
+| --outputtype | the output type of the outcome, `stdout`/`file`. | `stdout`              |
+| --repopath   | the git repository path.                         | `/usr/share/repo`     |
 
 > Note: the `--changelog` doesn't preserve existing file content.</br>
 > Note: the `--outputtype file` option will produce a file in your repository named `version-bumper-output`.

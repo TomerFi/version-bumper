@@ -24,11 +24,13 @@ RUN npm i -g \
   conventional-recommended-bump@6.1.0 \
   git-semver-tags@4.1.1
 
-COPY . /usr/local/scripts
+COPY entrypoint.sh /usr/local/scripts/entrypoint.sh
 
-WORKDIR /usr/share/repo
+RUN chmod a+x /usr/local/scripts/entrypoint.sh
 
-ENTRYPOINT ["/bin/bash", "/usr/local/scripts/entrypoint.sh"]
+VOLUME /usr/share/repo
+
+ENTRYPOINT ["/usr/local/scripts/entrypoint.sh --repopath /usr/share/repo"]
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -37,7 +39,7 @@ ARG VERSION
 LABEL org.opencontainers.image.created=$BUILD_DATE \
 org.opencontainers.image.authors="Tomer Figenblat <mailto:tomer.figenblat@gmail.com>" \
 org.opencontainers.image.url="https://hub.docker.com/r/tomerfi/version-bumper" \
-org.opencontainers.image.documentation="https://github.com/TomerFi/version-bumper/wiki" \
+org.opencontainers.image.documentation="https://github.com/TomerFi/version-bumper" \
 org.opencontainers.image.source="https://github.com/TomerFi/version-bumper" \
 org.opencontainers.image.version=$VERSION \
 org.opencontainers.image.revision=$VCS_REF \
