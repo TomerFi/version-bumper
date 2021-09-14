@@ -30,6 +30,8 @@ show_usage() {
   echo "  defaults to 'conventionalcommits'"
   echo "--outputtype, can be either 'stdout' or 'file', file name is 'version-bumper-output'"
   echo "  defaults to 'stdout'"
+  echo "--repopath, the path of the git repository to work with"
+  echo "  defaults to './'"
   echo ""
   echo "Full example:"
   echo "--label .dev --changelog true --preset conventionalcommits"
@@ -65,12 +67,16 @@ label=$(echo "${label:-.dev}" | xargs)
 changelog=${changelog:-false}
 preset=${preset:-conventionalcommits}
 outputtype=${outputtype:-stdout}
+repopath=${repopath:-./}
 
 # verify git repository
 if [ ! $(git rev-parse --is-inside-work-tree 2>&1) ]; then
   echo "volume is not a git repository workspace"
   exit 1
 fi
+
+# step into repopath
+cd $repopath
 
 ##############################################################################
 ################################ Bump Version ################################
@@ -148,7 +154,7 @@ if [ $outputtype = "stdout" ]; then
 elif [ $outputtype = "file" ]; then
   echo $new_version $next_iteration > version-bumper-output
 else
-  echo "unknown output-type"
+  echo "unknown outputtype"
   show_usage
   exit 1
 fi

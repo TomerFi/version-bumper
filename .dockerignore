@@ -1,3 +1,5 @@
 .*
+*.md
+*.log
 Makefile
-README.md
+version-bumper-output
