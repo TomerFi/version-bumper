@@ -29,19 +29,21 @@ identified from [commit][3] messages:
 
 Add the following flags for granular control:
 
-| Flag        | Function                                     | Default               |
-| ----------- | -------------------------------------------- | --------------------- |
-| --changelog | will create a CHANGELOG.md file.             | `false`               |
-| --label     | set the label for the development iteration. | `.dev`                |
-| --preset    | set the preset for the changelog file.       | `conventionalcommits` |
+| Flag         | Function                                        | Default               |
+| ------------ | ----------------------------------------------- | --------------------- |
+| --changelog  | also create a CHANGELOG.md file.                | `false`               |
+| --label      | set the label for the development iteration.    | `.dev`                |
+| --preset     | set the preset for the changelog file.          | `conventionalcommits` |
+| --outputtype | the output type of the outcome, 'stdout'/'file' | `stdout`              |
 
-> Note: the `--changelog` doesn't preserve existing file content.
+> Note: the `--changelog` doesn't preserve existing file content.</br>
+> Note: the `--outputtype file` option will produce a file in your repository named `version-bumper-output`.
 
 ### Example fully configured run
 
 ```shell
 docker run -v $PWD:/usr/share/repo tomerfi/version-bumper:latest \
---changelog true --label .dev --preset conventionalcommits
+--changelog true --label .dev --preset conventionalcommits --outputtype stdout
 ```
 
 > Tip: other than `conventionalcommits`, possible prest values can be found [here][5].
