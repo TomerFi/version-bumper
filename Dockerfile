@@ -28,9 +28,9 @@ COPY entrypoint.sh /usr/local/scripts/entrypoint.sh
 
 RUN chmod a+x /usr/local/scripts/entrypoint.sh
 
-VOLUME /usr/share/repo
+WORKDIR /usr/share/repo
 
-ENTRYPOINT ["/usr/local/scripts/entrypoint.sh --repopath /usr/share/repo"]
+ENTRYPOINT ["/usr/local/scripts/entrypoint.sh"]
 
 ARG BUILD_DATE
 ARG VCS_REF
