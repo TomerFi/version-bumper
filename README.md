@@ -31,13 +31,12 @@ Add the following flags for granular control:
 
 | Flag         | Function                                         | Default               |
 | ------------ | ------------------------------------------------ | --------------------- |
-| --changelog  | also create a CHANGELOG.md file.                 | `false`               |
+| --changelog  | also create a changelog-x.y.z.md file.           | `false`               |
 | --label      | set the label for the development iteration.     | `.dev`                |
 | --preset     | set the preset for the changelog file.           | `conventionalcommits` |
 | --outputtype | the output type of the outcome, `stdout`/`file`. | `stdout`              |
 | --repopath   | the git repository path.                         | `/usr/share/repo`     |
 
-> Note: the `--changelog` doesn't preserve existing file content.</br>
 > Note: the `--outputtype file` option will produce a file in your repository named `version-bumper-output`.
 
 ### Example fully configured run
@@ -57,6 +56,7 @@ The contributing guidelines are [here][6]
 
 The code of conduct is [here][7]
 
+<!-- editorconfig-checker-disable -->
 <!-- Real Links -->
 [0]: https://hub.docker.com/r/tomerfi/version-bumper
 [1]: https://github.com/TomerFi/version-bumper
@@ -71,3 +71,4 @@ The code of conduct is [here][7]
 [docker-version]: https://img.shields.io/docker/v/tomerfi/version-bumper?color=%230A6799&logo=docker
 [gh-build-status]: https://github.com/TomerFi/version-bumper/actions/workflows/pre-release.yml/badge.svg
 [license-badge]: https://img.shields.io/github/license/tomerfi/version-bumper
+<!-- editorconfig-checker-enable -->
