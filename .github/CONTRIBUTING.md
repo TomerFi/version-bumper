@@ -21,13 +21,15 @@ tagging it as `#version` and `latest`.
 make multi
 ```
 
-The `multi` Makefile target will build multi-platforms images in-cache and not load them (a warning will issue at build time).
+The `multi` Makefile target will build multi-platforms images in-cache and not load them (a warning
+will issue at build time).
 
 > The `Makefile` is dogfooding, meaning it uses the script for the image to get the next version."
 
 ## Early-access
 
-An early-access image manifest deployes to [ghcr.io](https://github.com/TomerFi/version-bumper/pkgs/container/version-bumper)
+An early-access image manifest deployes to
+[ghcr.io](https://github.com/TomerFi/version-bumper/pkgs/container/version-bumper)
 for every merge to the default branch, `master`:
 
 ```shell
@@ -38,9 +40,9 @@ ghcr.io/tomerfi/version-bumper:early-access
 ## Lint sources
 
 ```shell
-docker run --rm -e RUN_LOCAL=true -e LINTER_RULES_PATH=. -e VALIDATE_DOCKERFILE=true \
--e VALIDATE_EDITORCONFIG=true -e VALIDATE_MARKDOWN=true -e VALIDATE_YAML=true -e \
-VALIDATE_SHELL_SHFMT=true -v $PWD:/tmp/lint ghcr.io/github/super-linter:slim-v4
+docker run --rm -e RUN_LOCAL=true -e VALIDATE_DOCKERFILE=true -e VALIDATE_EDITORCONFIG=true \
+-e VALIDATE_MARKDOWN=true -e VALIDATE_YAML=true -e VALIDATE_SHELL_SHFMT=true \
+-v $PWD:/tmp/lint ghcr.io/github/super-linter:slim-v4
 ```
 
 ## Code of Conduct
