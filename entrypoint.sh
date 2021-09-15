@@ -24,7 +24,7 @@ show_usage() {
   echo "Options:"
   echo "--label, Optionally set a development build label"
   echo "  defaults to '.dev'"
-  echo "--changelog, Optionally create a new CHANGELOG.md deleting the existing one"
+  echo "--changelog, Optionally create a new changelog-X.md (X the next version)"
   echo "  defaults to 'false'"
   echo "--preset, Optionally set the preset for creating the change log"
   echo "  defaults to 'conventionalcommits'"
@@ -132,17 +132,17 @@ next_iteration=$new_major_minor.$next_patch$label
 
 # if changelog requested
 if "$changelog"; then
-  # remove previous CHANGELOG.md file
-  rm -f CHANGELOG.md
+  # remove previous changelog-x.md file
+  rm -f changelog-$new_version.md
 
   # create a temporary release context file
-  echo "{\"version\": \"$new_version\"}" >release-context.json
+  echo "{\"version\": \"$new_version\"}" >release-context-$new_version.json
 
-  # use conventional-change-log to generate the CHANGELOG.md file
-  conventional-changelog -p $preset -t "" -c release-context.json -o CHANGELOG.md
+  # use conventional-change-log to generate the changelog-*.md file
+  conventional-changelog -p $preset -t "" -c release-context-$new_version.json -o changelog-$new_version.md
 
   # delete the temporary release context file
-  rm -f release-context.json
+  rm -f release-context-$new_version.json
 fi
 
 ##############################################################################
@@ -152,7 +152,7 @@ fi
 if [ $outputtype = "stdout" ]; then
   echo $new_version $next_iteration
 elif [ $outputtype = "file" ]; then
-  echo $new_version $next_iteration > version-bumper-output
+  echo $new_version $next_iteration >version-bumper-output
 else
   echo "unknown outputtype"
   show_usage

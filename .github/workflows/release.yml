@@ -8,12 +8,10 @@ env:
   PLATFORMS: linux/amd64,linux/arm/v7,linux/arm64/v8
 
 jobs:
-  publish:
+  release:
     runs-on: ubuntu-latest
     environment: deployment
-    name: Build and publish to Docker Hub
-    outputs:
-      new_version: ${{ steps.version_info.outputs.next_version  }}
+    name: Build, publish, and release
     steps:
       - name: Source checkout
         uses: actions/checkout@v2.3.4
@@ -51,9 +49,9 @@ jobs:
           conventional-recommended-bump
           git-semver-tags
 
-      - name: Eat your own dogfood
+      - name: Eat own dogfood
         id: version_info
-        run: echo "::set-output name=next_version::$(bash entrypoint.sh --changelog true | cut -f1 -d" ")"
+        run: echo "::set-output name=next_version::$(bash entrypoint.sh --changelog true | cut -f1 -d" ")" # editorconfig-checker-disable-line
 
       - name: Get current date
         id: current_date
@@ -77,39 +75,14 @@ jobs:
             ghcr.io/tomerfi/version-bumper:early-access
           cache-to: type=local,dest=/tmp/.buildx-cache
 
-      - name: Upload changelog artifact
-        uses: actions/upload-artifact@v2.2.4
-        with:
-          name: changelog
-          if-no-files-found: error
-          path: CHANGELOG.md
-
-  release:
-    runs-on: ubuntu-latest
-    name: Release
-    needs: [publish]
-    outputs:
-      html_url: ${{ steps.gh_release.outputs.html_url }}
-    steps:
-      - name: Download changelog artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: changelog
-
       - name: Release to GitHub
         id: gh_release
         uses: ncipollo/release-action@v1.8.9
         with:
-          bodyFile: CHANGELOG.md
-          tag: ${{ needs.publish.outputs.new_version }}
+          bodyFile: changelog-${{ steps.version_info.outputs.next_version }}.md
+          tag: ${{ steps.version_info.outputs.next_version }}
           token: ${{ github.token }}
 
-  announce:
-    runs-on: ubuntu-latest
-    environment: deployment
-    name: Announce new release
-    needs: [publish, release]
-    steps:
       - name: Tweet new release
         uses: lazy-actions/tweet-action@1.0.1
         with:
@@ -118,7 +91,7 @@ jobs:
           oauth_token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           oauth_token_secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
           message: |
-            🚀🎉 Version Bumper ${{ needs.publish.outputs.new_version  }} has been released! 🎉🚀
-            ${{ needs.release.outputs.html_url }}
+            🚀🎉 Version Bumper ${{ steps.version_info.outputs.next_version   }} has been released! 🎉🚀
+            ${{ steps.gh_release.outputs.html_url}}
 
             #version_bumper
