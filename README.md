@@ -2,7 +2,7 @@
 
 [![license-badge]][1] [![gh-build-status]][2]
 
-Containerized scripts for automating the next semantic version for</br>
+Containerized scripts for determining the next semantic version for</br>
 a git repository based on existing tags and [conventional commits][3].
 
 ## Run
@@ -11,11 +11,16 @@ a git repository based on existing tags and [conventional commits][3].
 docker run -v $PWD:/usr/share/repo tomerfi/version-bumper:latest
 ```
 
+## GitHub action
+
+If you're working git GitHub Actions,</br>
+you can use [this action][8] and automate your release workflow.
+
 ## Example outcome
 
 If the latest [semantic][4] tag, in a git repository is, for instance, `2.1.6`.</br>
 The following table illustrates the outcome based on the required bump,</br>
-identified from [commit][3] messages:
+identified by [conventional][3] commit messages:
 
 | Required bump | Outcome         |
 | ------------- | --------------- |
@@ -66,6 +71,7 @@ The code of conduct is [here][7]
 [5]: https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-cli/cli.js
 [6]: https://github.com/TomerFi/version-bumper/blob/dev/.github/CONTRIBUTING.md
 [7]: https://github.com/TomerFi/version-bumper/blob/dev/.github/CODE_OF_CONDUCT.md
+[8]: https://github.com/marketplace/actions/version-bumper-action
 <!-- Badges Links -->
 [docker-pulls]: https://img.shields.io/docker/pulls/tomerfi/version-bumper.svg?logo=docker&label=pulls
 [docker-version]: https://img.shields.io/docker/v/tomerfi/version-bumper?color=%230A6799&logo=docker
