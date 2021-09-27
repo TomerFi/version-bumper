@@ -65,7 +65,7 @@ The code of conduct is [here][7]
 <!-- Real Links -->
 [0]: https://hub.docker.com/r/tomerfi/version-bumper
 [1]: https://github.com/TomerFi/version-bumper
-[2]: https://github.com/TomerFi/version-bumper/actions/workflows/pre-release.yml
+[2]: https://github.com/TomerFi/version-bumper/actions/workflows/stage.yml
 [3]: https://conventionalcommits.org
 [4]: https://semver.org/
 [5]: https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-cli/cli.js
@@ -75,6 +75,6 @@ The code of conduct is [here][7]
 <!-- Badges Links -->
 [docker-pulls]: https://img.shields.io/docker/pulls/tomerfi/version-bumper.svg?logo=docker&label=pulls
 [docker-version]: https://img.shields.io/docker/v/tomerfi/version-bumper?color=%230A6799&logo=docker
-[gh-build-status]: https://github.com/TomerFi/version-bumper/actions/workflows/pre-release.yml/badge.svg
+[gh-build-status]: https://github.com/TomerFi/version-bumper/actions/workflows/stage.yml/badge.svg
 [license-badge]: https://img.shields.io/github/license/tomerfi/version-bumper
 <!-- editorconfig-checker-enable -->
