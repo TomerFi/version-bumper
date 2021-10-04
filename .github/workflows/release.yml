@@ -82,7 +82,7 @@ jobs:
 
       - name: Release to GitHub
         id: gh_release
-        uses: ncipollo/release-action@v1.8.9
+        uses: ncipollo/release-action@v1.8.10
         with:
           bodyFile: changelog-${{ steps.version_info.outputs.next_version }}.md
           tag: ${{ steps.version_info.outputs.next_version }}
