@@ -6,15 +6,21 @@ on:
     branches:
       - master
 
+permissions:
+  pull-requests: read
+
 jobs:
   lint:
     runs-on: ubuntu-latest
     name: Lint project
+    permissions:
+      pull-requests: write
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2.4.0
         with:
           fetch-depth: 0
+          ref: ${{ github.head_ref }}
 
       - name: Lint sources
         uses: docker://ghcr.io/github/super-linter:slim-v4
@@ -37,6 +43,8 @@ jobs:
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2.4.0
+        with:
+          ref: ${{ github.head_ref }
 
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v1.6.0
