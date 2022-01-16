@@ -19,8 +19,16 @@ RUN apt update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN npm i -g \
+  conventional-changelog-angular@5.0.13 \
+  conventional-changelog-atom@2.0.8 \
   conventional-changelog-cli@2.1.1 \
+  conventional-changelog-codemirror@2.0.8 \
   conventional-changelog-conventionalcommits@4.6.1 \
+  conventional-changelog-ember@2.0.9 \
+  conventional-changelog-eslint@3.0.9 \
+  conventional-changelog-express@2.0.6 \
+  conventional-changelog-jquery@3.0.11 \
+  conventional-changelog-jshint@2.0.9 \
   conventional-recommended-bump@6.1.0 \
   git-semver-tags@4.1.1
 

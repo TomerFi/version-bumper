@@ -93,7 +93,7 @@ else
   read last_major last_minor last_patch <<<$(sed "s/\./ /g" <<<$last_semver)
 
   # use conventional-recommended-bump to get the next bump recommendation
-  rec_bump=$(conventional-recommended-bump -p conventionalcommits -t "")
+  rec_bump=$(conventional-recommended-bump -p $preset -t "")
 
   # create the next semver version based on the bump recomendation
   if [ $rec_bump = "major" ]; then

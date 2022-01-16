@@ -44,6 +44,18 @@ Add the following flags for granular control:
 
 > Note: the `--outputtype file` option will produce a file in your repository named `version-bumper-output`.
 
+Installed presets:
+
+- [angular][9]
+- [atom][10]
+- [codemirror][11]
+- [conventionalcommits][12]
+- [ember][13]
+- [eslint][14]
+- [express][15]
+- [jquery][16]
+- [jshint][17]
+
 ### Example fully configured run
 
 ```shell
@@ -72,6 +84,15 @@ The code of conduct is [here][7]
 [6]: https://github.com/TomerFi/version-bumper/blob/dev/.github/CONTRIBUTING.md
 [7]: https://github.com/TomerFi/version-bumper/blob/dev/.github/CODE_OF_CONDUCT.md
 [8]: https://github.com/marketplace/actions/version-bumper-action
+[9]: https://www.npmjs.com/package/conventional-changelog-angular
+[10]: https://www.npmjs.com/package/conventional-changelog-atom
+[11]: https://www.npmjs.com/package/conventional-changelog-codemirror
+[12]: https://www.npmjs.com/package/conventional-changelog-conventionalcommits
+[13]: https://www.npmjs.com/package/conventional-changelog-ember
+[14]: https://www.npmjs.com/package/conventional-changelog-eslint
+[15]: https://www.npmjs.com/package/conventional-changelog-express
+[16]: https://www.npmjs.com/package/conventional-changelog-jquery
+[17]: https://www.npmjs.com/package/conventional-changelog-jshint
 <!-- Badges Links -->
 [docker-pulls]: https://img.shields.io/docker/pulls/tomerfi/version-bumper.svg?logo=docker&label=pulls
 [docker-version]: https://img.shields.io/docker/v/tomerfi/version-bumper?color=%230A6799&logo=docker
