@@ -15,7 +15,7 @@
 default: single
 
 # dogfooding
-VERSION = $(strip $(shell bash entrypoint.sh | cut -f1 -d" "))
+VERSION = $(strip $(shell bash entrypoint.sh | cut -f1 -d" " | xargs ))
 
 IMAGE_NAME = tomerfi/version-bumper
 GIT_COMMIT = $(strip $(shell git rev-parse --short HEAD))
