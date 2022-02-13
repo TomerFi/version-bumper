@@ -4,10 +4,13 @@ name: Release
 on:
   workflow_dispatch:
     inputs:
+      title:
+        description: "Release title"
+        required: true
       tweet:
         description: "Tweet new release?"
         required: false
-        default: "yes"
+        default: "no"
 
 env:
   PLATFORMS: linux/amd64,linux/arm/v7,linux/arm64/v8
@@ -56,7 +59,7 @@ jobs:
 
       - name: Eat own dogfood
         id: version_info
-        run: echo "::set-output name=next_version::$(bash entrypoint.sh --changelog true | cut -f1 -d" ")" # editorconfig-checker-disable-line
+        run: echo "::set-output name=next_version::$(bash entrypoint.sh | cut -f1 -d' ')"
 
       - name: Get current date
         id: current_date
@@ -80,12 +83,18 @@ jobs:
             ghcr.io/tomerfi/version-bumper:early-access
           cache-to: type=local,dest=/tmp/.buildx-cache
 
-      - name: Release to GitHub
+      - name: Create a release
         id: gh_release
-        uses: ncipollo/release-action@v1.9.0
+        uses: actions/github-script@v6
         with:
-          bodyFile: changelog-${{ steps.version_info.outputs.next_version }}.md
-          tag: ${{ steps.version_info.outputs.next_version }}
+          script: |
+            const repo_name = context.payload.repository.full_name
+            const response = await github.request('POST /repos/' + repo_name + '/releases', {
+              tag_name: '${{ steps.bumper.outputs.new_version }}',
+              name: '${{ github.event.inputs.title }}',
+              generate_release_notes: true
+            })
+            core.setOutput('html_url', response.data.html_url)
 
       - name: Tweet new release
         if: ${{ github.event.inputs.tweet == 'yes' }}
@@ -99,4 +108,4 @@ jobs:
             🚀🎉 Version Bumper ${{ steps.version_info.outputs.next_version   }} has been released! 🎉🚀
             ${{ steps.gh_release.outputs.html_url}}
 
-            #version_bumper
+            #version_bumper #semver
