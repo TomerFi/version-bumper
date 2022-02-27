@@ -10,6 +10,18 @@ permissions:
   pull-requests: read
 
 jobs:
+  triage:
+    runs-on: ubuntu-latest
+    name: Pull request triage
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Auto approve
+        uses: hmarr/auto-approve-action@v2.1.0
+        if: github.actor == 'dependabot[bot]'
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
   label-by-content:
     runs-on: ubuntu-latest
     name: Label by content
