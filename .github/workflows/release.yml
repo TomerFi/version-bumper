@@ -90,7 +90,7 @@ jobs:
           script: |
             const repo_name = context.payload.repository.full_name
             const response = await github.request('POST /repos/' + repo_name + '/releases', {
-              tag_name: '${{ steps.bumper.outputs.new_version }}',
+              tag_name: '${{ steps.version_info.outputs.next_version }}',
               name: '${{ github.event.inputs.title }}',
               generate_release_notes: true
             })
