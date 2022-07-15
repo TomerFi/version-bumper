@@ -45,7 +45,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Setup Node
-        uses: actions/setup-node@v3.4.0
+        uses: actions/setup-node@v3.4.1
         with:
           node-version: 16
 
