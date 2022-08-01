@@ -32,8 +32,8 @@ show_usage() {
   echo "  defaults to 'stdout'"
   echo "--repopath, the path of the git repository to work with"
   echo "  defaults to './'"
-  echo "--bumpoverride, Optionally override the version bump, can be either 'major', 'minor' or 'patch'"
-  echo "  default to '' (automatic bumps)"
+  echo "--bumpoverride, Optionally override the version bump, can be either 'major', 'minor', 'patch' or 'auto"
+  echo "  default to 'auto'"
   echo ""
   echo "Full example:"
   echo "--label .dev --changelog true --preset conventionalcommits"
@@ -70,7 +70,7 @@ changelog=${changelog:-false}
 preset=${preset:-conventionalcommits}
 outputtype=${outputtype:-stdout}
 repopath=${repopath:-./}
-bumpoverride=${bumpoverride:-}
+bumpoverride=${bumpoverride:-auto}
 
 # verify git repository
 if [ ! $(git rev-parse --is-inside-work-tree 2>&1) ]; then
@@ -78,7 +78,7 @@ if [ ! $(git rev-parse --is-inside-work-tree 2>&1) ]; then
   exit 1
 fi
 
-if [[ $bumpoverride != "" && $bumpoverride != "major" && $bumpoverride != "minor" && $bumpoverride != "patch" ]]; then
+if [[ $bumpoverride != "auto" && $bumpoverride != "major" && $bumpoverride != "minor" && $bumpoverride != "patch" ]]; then
   echo "Unknown bump override level, possible values: 'major', 'minor' or 'patch'"
   exit 1
 fi
@@ -100,10 +100,11 @@ else
   # else read the semantic parts from the latest tag
   read last_major last_minor last_patch <<<$(sed "s/\./ /g" <<<$last_semver)
 
-  # use conventional-recommended-bump to get the next bump recommendation
-  if [[ $bumpoverride == "" ]]; then
+  if [[ $bumpoverride == "auto" ]]; then
+    # use conventional-recommended-bump to get the next bump recommendation
     rec_bump=$(conventional-recommended-bump -p $preset -t "")
   else
+    # manually set the bump to major/minor/bump
     rec_bump=$bumpoverride
   fi
 
