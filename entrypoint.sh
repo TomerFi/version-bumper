@@ -72,7 +72,6 @@ outputtype=${outputtype:-stdout}
 repopath=${repopath:-./}
 bumpoverride=${bumpoverride:-}
 
-
 # verify git repository
 if [ ! $(git rev-parse --is-inside-work-tree 2>&1) ]; then
   echo "volume is not a git repository workspace"
