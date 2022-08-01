@@ -59,7 +59,7 @@ increment() { echo $(("$1" + 1)); }
 while [ $# -gt 0 ]; do
   if [[ $1 == *"--"* ]]; then
     param="${1/--/}"
-    declare "$param"="$2"
+    declare $param="$2"
   fi
   shift
 done
@@ -84,7 +84,7 @@ if [[ $bumpoverride != "" && $bumpoverride != "major" && $bumpoverride != "minor
 fi
 
 # step into repopath
-cd "$repopath" || exit
+cd $repopath
 
 ##############################################################################
 ################################ Bump Version ################################
@@ -98,29 +98,29 @@ if [[ $last_semver == "" ]]; then
   new_version="1.0.0"
 else
   # else read the semantic parts from the latest tag
-  read last_major last_minor last_patch <<<$(sed "s/\./ /g" <<<"$last_semver")
+  read last_major last_minor last_patch <<<$(sed "s/\./ /g" <<<$last_semver)
 
   # use conventional-recommended-bump to get the next bump recommendation
   if [[ $bumpoverride == "" ]]; then
-    rec_bump=$(conventional-recommended-bump -p "$preset" -t "")
+    rec_bump=$(conventional-recommended-bump -p $preset -t "")
   else
     rec_bump=$bumpoverride
   fi
 
   # create the next semver version based on the bump recomendation
-  if [ "$rec_bump" = "major" ]; then
+  if [ $rec_bump = "major" ]; then
     # bump major preserving the v prefix if exists
     if [[ $last_major == v* ]]; then
-      new_version=v$(increment $(cut -c 2- <<<"$last_major")).0.0
+      new_version=v$(increment $(cut -c 2- <<<$last_major)).0.0
     else
-      new_version=$(increment "$last_major").0.0
+      new_version=$(increment $last_major).0.0
     fi
-  elif [ "$rec_bump" = "minor" ]; then
+  elif [ $rec_bump = "minor" ]; then
     # bump minor
-    new_version=$last_major.$(increment "$last_minor").0
+    new_version=$last_major.$(increment $last_minor).0
   else
     # bump patch
-    new_version=$last_major.$last_minor.$(increment "$last_patch")
+    new_version=$last_major.$last_minor.$(increment $last_patch)
   fi
 fi
 
@@ -129,11 +129,11 @@ fi
 ##############################################################################
 
 # get the new version semantic parts
-new_major_minor=$(cut -f1,2 -d"." <<<"$new_version")
-new_patch=$(cut -d"." -f3- <<<"$new_version")
+new_major_minor=$(cut -f1,2 -d"." <<<$new_version)
+new_patch=$(cut -d"." -f3- <<<$new_version)
 
 # increment the new patch part
-next_patch=$(increment "$new_patch")
+next_patch=$(increment $new_patch)
 
 # concatenate the new major, minor, and next patch parts with the build label
 next_iteration=$new_major_minor.$next_patch$label
@@ -145,26 +145,26 @@ next_iteration=$new_major_minor.$next_patch$label
 # if changelog requested
 if "$changelog"; then
   # remove previous changelog-x.md file
-  rm -f changelog-"$new_version".md
+  rm -f changelog-$new_version.md
 
   # create a temporary release context file
-  echo "{\"version\": \"$new_version\"}" >release-context-"$new_version".json
+  echo "{\"version\": \"$new_version\"}" >release-context-$new_version.json
 
   # use conventional-change-log to generate the changelog-*.md file
-  conventional-changelog -p "$preset" -t "" -c release-context-"$new_version".json -o changelog-"$new_version".md
+  conventional-changelog -p $preset -t "" -c release-context-$new_version.json -o changelog-$new_version.md
 
   # delete the temporary release context file
-  rm -f release-context-"$new_version".json
+  rm -f release-context-$new_version.json
 fi
 
 ##############################################################################
 ############################### Output Results ###############################
 ##############################################################################
 
-if [ "$outputtype" = "stdout" ]; then
-  echo "$new_version" "$next_iteration"
-elif [ "$outputtype" = "file" ]; then
-  echo "$new_version" "$next_iteration" >version-bumper-output
+if [ $outputtype = "stdout" ]; then
+  echo $new_version $next_iteration
+elif [ $outputtype = "file" ]; then
+  echo $new_version $next_iteration >version-bumper-output
 else
   echo "unknown outputtype"
   show_usage
