@@ -32,6 +32,8 @@ show_usage() {
   echo "  defaults to 'stdout'"
   echo "--repopath, the path of the git repository to work with"
   echo "  defaults to './'"
+  echo "--bumpoverride, Optionally override the version bump, can be either 'major', 'minor' or 'patch'"
+  echo "  default to '' (automatic bumps)"
   echo ""
   echo "Full example:"
   echo "--label .dev --changelog true --preset conventionalcommits"
@@ -68,10 +70,16 @@ changelog=${changelog:-false}
 preset=${preset:-conventionalcommits}
 outputtype=${outputtype:-stdout}
 repopath=${repopath:-./}
+bumpoverride=${bumpoverride:-}
 
 # verify git repository
 if [ ! $(git rev-parse --is-inside-work-tree 2>&1) ]; then
   echo "volume is not a git repository workspace"
+  exit 1
+fi
+
+if [[ $bumpoverride != "" && $bumpoverride != "major" && $bumpoverride != "minor" && $bumpoverride != "patch" ]]; then
+  echo "Unknown bump override level, possible values: 'major', 'minor' or 'patch'"
   exit 1
 fi
 
@@ -93,7 +101,11 @@ else
   read last_major last_minor last_patch <<<$(sed "s/\./ /g" <<<$last_semver)
 
   # use conventional-recommended-bump to get the next bump recommendation
-  rec_bump=$(conventional-recommended-bump -p $preset -t "")
+  if [[ $bumpoverride == "" ]]; then
+    rec_bump=$(conventional-recommended-bump -p $preset -t "")
+  else
+    rec_bump=$bumpoverride
+  fi
 
   # create the next semver version based on the bump recomendation
   if [ $rec_bump = "major" ]; then
