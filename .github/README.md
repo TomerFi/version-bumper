@@ -73,6 +73,12 @@ The contributing guidelines are [here][6]
 
 The code of conduct is [here][7]
 
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
 <!-- editorconfig-checker-disable -->
 <!-- Real Links -->
 [0]: https://hub.docker.com/r/tomerfi/version-bumper
