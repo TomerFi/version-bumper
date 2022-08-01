@@ -34,13 +34,14 @@ identified by [conventional][3] commit messages:
 
 Add the following flags for granular control:
 
-| Flag         | Function                                         | Default               |
-| ------------ | ------------------------------------------------ | --------------------- |
-| --changelog  | also create a changelog-x.y.z.md file.           | `false`               |
-| --label      | set the label for the development iteration.     | `.dev`                |
-| --preset     | set the preset for the changelog file.           | `conventionalcommits` |
-| --outputtype | the output type of the outcome, `stdout`/`file`. | `stdout`              |
-| --repopath   | the git repository path.                         | `/usr/share/repo`     |
+| Flag           | Function                                               | Default               |
+| -------------- | ------------------------------------------------------ | --------------------- |
+| --changelog    | also create a changelog-x.y.z.md file.                 | `false`               |
+| --label        | set the label for the development iteration.           | `.dev`                |
+| --preset       | set the preset for the changelog file.                 | `conventionalcommits` |
+| --outputtype   | the output type of the outcome, `stdout`/`file`.       | `stdout`              |
+| --repopath     | the git repository path.                               | `/usr/share/repo`     |
+| --bumpoverride | override the bump type, `auto`/`major`/`minor`/`patch` | `auto`                |
 
 > Note: the `--outputtype file` option will produce a file in your repository named `version-bumper-output`.
 
@@ -60,10 +61,10 @@ Installed presets:
 
 ```shell
 docker run -v $PWD:/usr/share/repo tomerfi/version-bumper:latest \
---changelog true --label .dev --preset conventionalcommits --outputtype stdout
+--changelog true --label .dev --preset conventionalcommits --outputtype stdout --bumpoverride auto
 ```
 
-> Tip: other than `conventionalcommits`, possible prest values can be found [here][5].
+> Tip: other than `conventionalcommits`, possible preset values can be found [here][5].
 
 ## Contributing
 
