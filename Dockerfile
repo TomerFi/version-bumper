@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM node:18.10.0-bullseye-slim
+FROM node:18.11.0-bullseye-slim
 
 RUN apt update \
     && apt install -y git \
