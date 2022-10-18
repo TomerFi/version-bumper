@@ -51,17 +51,13 @@ jobs:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ hashFiles('Dockerfile', '.dockerignore') }}
 
-      - name: Get current date
-        id: current_date
-        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-
       - name: Build docker image (no push)
         uses: docker/build-push-action@v3.2.0
         with:
           context: .
           build-args: |
             VCS_REF=${{ github.sha }}
-            BUILD_DATE=${{ steps.current_date.outputs.date }}
+            BUILD_DATE=$(date +'%Y-%m-%d')
             VERSION=testing
           tags: tomerfi/version-bumper:testing
           cache-from: type=local,src=/tmp/.buildx-cache

@@ -61,10 +61,6 @@ jobs:
         id: version_info
         run: echo "next_version=$(bash entrypoint.sh | cut -f1 -d' ')" >> $GITHUB_OUTPUT
 
-      - name: Get current date
-        id: current_date
-        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-
       - name: Build images and push to Docker Hub
         uses: docker/build-push-action@v3.2.0
         with:
@@ -76,7 +72,7 @@ jobs:
             tomerfi/version-bumper:${{ steps.version_info.outputs.next_version }}
           build-args: |
             VCS_REF=${{ github.sha }}
-            BUILD_DATE=${{ steps.current_date.outputs.date }}
+            BUILD_DATE=$(date +'%Y-%m-%d')
             VERSION=${{ steps.version_info.outputs.next_version }}
           cache-from: |
             type=local,src=/tmp/.buildx-cache
