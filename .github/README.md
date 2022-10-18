@@ -80,9 +80,12 @@ The code of conduct is [here][7]
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
-  <tr>
-    <td align="center"><a href="https://github.com/MisterTimn"><img src="https://avatars.githubusercontent.com/u/4209558?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jasper Vaneessen</b></sub></a><br /><a href="https://github.com/TomerFi/version-bumper/commits?author=MisterTimn" title="Code">💻</a></td>
-  </tr>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://github.com/MisterTimn"><img src="https://avatars.githubusercontent.com/u/4209558?v=4?s=100" width="100px;" alt="Jasper Vaneessen"/><br /><sub><b>Jasper Vaneessen</b></sub></a><br /><a href="https://github.com/TomerFi/version-bumper/commits?author=MisterTimn" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/AlexNDRmac"><img src="https://avatars.githubusercontent.com/u/29776808?v=4?s=100" width="100px;" alt="Oleksandr Andriiako"/><br /><sub><b>Oleksandr Andriiako</b></sub></a><br /><a href="#infra-AlexNDRmac" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- markdownlint-restore -->
