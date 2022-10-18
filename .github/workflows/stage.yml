@@ -38,10 +38,6 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GPR_PAT }}
 
-      - name: Get current date
-        id: current_date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
-
       - name: Build images and push to GHCR
         uses: docker/build-push-action@v3.2.0
         with:
@@ -51,7 +47,7 @@ jobs:
           tags: ghcr.io/tomerfi/version-bumper:early-access
           build-args: |
             VCS_REF=${{ github.sha }}
-            BUILD_DATE=${{ steps.current_date.outputs.date }}
+            BUILD_DATE=$(date +'%Y-%m-%d')
             VERSION=early-access
           cache-from: |
             type=local,src=/tmp/.buildx-cache
