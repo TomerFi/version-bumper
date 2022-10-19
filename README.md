@@ -1,4 +1,6 @@
-# Version Bumper</br>[![docker-version]][0] [![docker-pulls]][0]</br>[![license-badge]][1] [![gh-build-status]][2]
+# Version Bumper</br>[![docker-version]][0] [![docker-pulls]][0]
+
+[![license-badge]][1] [![gh-build-status]][2]
 
 Containerized scripts for determining the next semantic version for</br>
 a git repository based on existing tags and [conventional commits][3].
