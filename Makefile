@@ -41,3 +41,15 @@ multi:
 	--platform $(PLATFORMS) \
 	--tag $(FULL_IMAGE_NAME) \
 	--tag $(IMAGE_NAME):latest .
+
+lint:
+	docker run --rm \
+	-e RUN_LOCAL=true -e IGNORE_GITIGNORED_FILES=true -e IGNORE_GENERATED_FILES=true \
+	-e VALIDATE_DOCKERFILE=true -e VALIDATE_EDITORCONFIG=true -e VALIDATE_GITHUB_ACTIONS=true \
+	-e VALIDATE_MARKDOWN=true -e VALIDATE_YAML=true -e VALIDATE_SHELL_SHFMT=true \
+	-v $PWD:/tmp/lint ghcr.io/github/super-linter:slim-v4
+
+enable-multi-arch:
+	docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+
+.PHONY: single multi lint enable-multi-arch
