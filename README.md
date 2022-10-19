@@ -1,6 +1,4 @@
-# Version Bumper</br>[![docker-version]][0] [![docker-pulls]][0]
-
-[![license-badge]][1] [![gh-build-status]][2]
+# Version Bumper</br>[![docker-version]][0] [![docker-pulls]][0]</br>[![license-badge]][1] [![gh-build-status]][2]
 
 Containerized scripts for determining the next semantic version for</br>
 a git repository based on existing tags and [conventional commits][3].
@@ -75,7 +73,7 @@ The contributing guidelines are [here][6]
 The code of conduct is [here][7]
 
 ## Contributors
-
+<!-- editorconfig-checker-disable -->
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
@@ -101,7 +99,7 @@ The code of conduct is [here][7]
 [3]: https://conventionalcommits.org
 [4]: https://semver.org/
 [5]: https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-cli/cli.js
-[6]: https://github.com/TomerFi/version-bumper/blob/dev/.github/CONTRIBUTING.md
+[6]: https://github.com/TomerFi/version-bumper/blob/dev/CONTRIBUTING.md
 [7]: https://github.com/TomerFi/version-bumper/blob/dev/.github/CODE_OF_CONDUCT.md
 [8]: https://github.com/marketplace/actions/version-bumper-action
 [9]: https://www.npmjs.com/package/conventional-changelog-angular
