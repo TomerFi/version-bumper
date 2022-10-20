@@ -10,7 +10,7 @@
 ## Project walk through
 
 This project's main entrypoint is the
-[entrypoint.sh shell script](https://github.com/TomerFi/version-bumper/blob/master/entrypoint.sh)
+[entrypoint.sh shell script](https://github.com/TomerFi/version-bumper/blob/master/entrypoint.sh),<br/>
 it uses common *nodejs* tools installed globally with a
 [Dockerfile](https://github.com/TomerFi/version-bumper/blob/master/Dockerfile).
 
