@@ -55,3 +55,55 @@ for every push to the default branch, *master*:
 docker run --rm -v $PWD:/usr/share/repo \
 ghcr.io/tomerfi/version-bumper:early-access
 ```
+
+## Invoke the entrypoint directly
+
+For development purposes, it's convenient to invoke the entrypoint directly, i.e. without spinning up a container.<br/>
+Install the required *node* dependencies:
+
+```shell
+npm i -g \
+  conventional-changelog-angular@5.0.13 \
+  conventional-changelog-atom@2.0.8 \
+  conventional-changelog-cli@2.1.1 \
+  conventional-changelog-codemirror@2.0.8 \
+  conventional-changelog-conventionalcommits@4.6.1 \
+  conventional-changelog-ember@2.0.9 \
+  conventional-changelog-eslint@3.0.9 \
+  conventional-changelog-express@2.0.6 \
+  conventional-changelog-jquery@3.0.11 \
+  conventional-changelog-jshint@2.0.9 \
+  conventional-recommended-bump@6.1.0 \
+  git-semver-tags@4.1.1
+```
+
+You can invoke the entrypoint as a standard CLI program:
+
+```shell
+$ ./entrypoint.sh --help
+
+Script for automating semantic version bumps based on conventional commits
+--------------------------------------------------------------------------
+Usage: -h/--help
+Usage: [options]
+
+Options:
+--label, Optionally set a development build label
+  defaults to '.dev'
+--changelog, Optionally create a new changelog-X.md (X the next version)
+  defaults to 'false'
+--preset, Optionally set the preset for creating the change log
+  defaults to 'conventionalcommits'
+--outputtype, can be either 'stdout' or 'file', file name is 'version-bumper-output'
+  defaults to 'stdout'
+--repopath, the path of the git repository to work with
+  defaults to './'
+--bumpoverride, Optionally override the version bump, can be either 'major', 'minor', 'patch' or 'auto
+  default to 'auto'
+
+Full example:
+--label .dev --changelog true --preset conventionalcommits
+
+Output when the latest tag is 2.1.16 will be:
+2.1.17 2.1.18.dev
+```
