@@ -33,7 +33,7 @@ single:
 	--tag $(FULL_IMAGE_NAME) \
 	--tag $(IMAGE_NAME):latest .
 
-multi:
+multi: enable-multiarch
 	docker buildx build \
 	--build-arg VCS_REF=$(GIT_COMMIT) \
 	--build-arg BUILD_DATE=$(CURRENT_DATE) \
@@ -49,7 +49,7 @@ lint:
 	-e VALIDATE_MARKDOWN=true -e VALIDATE_YAML=true -e VALIDATE_SHELL_SHFMT=true \
 	-v $PWD:/tmp/lint ghcr.io/github/super-linter:slim-v4
 
-enable-multi-arch:
+enable-multiarch:
 	docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
 
-.PHONY: single multi lint enable-multi-arch
+.PHONY: single multi lint enable-multiarch

@@ -26,13 +26,6 @@ The `single` (default) target will build and load a single image based on the un
 tagging it as the next version and `latest`.
 
 ```shell
-make enable-multi-arch
-```
-
-Will start a [qemu-user-static container](https://github.com/multiarch/qemu-user-static) for enabling image building for
-various architectures.
-
-```shell
 make multi
 ```
 
@@ -44,6 +37,15 @@ make lint
 ```
 
 The `lint` target will lint the project using [GitHub's super-linter](https://github.com/github/super-linter).
+
+```shell
+make enable-multiarch
+```
+
+Will run [qemu-user-static](https://github.com/multiarch/qemu-user-static) and enable image building for various
+architectures.
+
+> *enable-multiarch* is set as a prerequisite for *multi*, usually there's no need to invoke it manually.
 
 ## Early-access
 
