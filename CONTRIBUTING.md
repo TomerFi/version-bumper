@@ -7,7 +7,7 @@
 - Commit your work
 - Create a pull request against the `master` branch
 
-## Project walk through
+## Project walkthrough
 
 This project's main entrypoint is the
 [entrypoint.sh shell script](https://github.com/TomerFi/version-bumper/blob/master/entrypoint.sh),<br/>
