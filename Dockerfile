@@ -45,7 +45,7 @@ ARG VCS_REF
 ARG VERSION
 
 LABEL org.opencontainers.image.created=$BUILD_DATE \
-org.opencontainers.image.authors="Tomer Figenblat <mailto:tomer.figenblat@gmail.com>" \
+org.opencontainers.image.authors="Tomer Figenblat <mailto:tomer@tomfi.info" \
 org.opencontainers.image.url="https://hub.docker.com/r/tomerfi/version-bumper" \
 org.opencontainers.image.documentation="https://github.com/TomerFi/version-bumper" \
 org.opencontainers.image.source="https://github.com/TomerFi/version-bumper" \
