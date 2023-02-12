@@ -7,10 +7,6 @@ on:
       title:
         description: "Release title"
         required: false
-      tweet:
-        description: "Tweet new release?"
-        required: false
-        default: "no"
 
 env:
   PLATFORMS: linux/amd64,linux/arm/v7,linux/arm64/v8
@@ -102,17 +98,3 @@ jobs:
               generate_release_notes: true
             })
             core.setOutput('html_url', response.data.html_url)
-
-      - name: Tweet new release
-        if: ${{ github.event.inputs.tweet == 'yes' }}
-        uses: lazy-actions/tweet-action@1.0.1
-        with:
-          oauth_consumer_key: ${{ secrets.TWITTER_API_KEY }}
-          oauth_consumer_secret: ${{ secrets.TWITTER_API_SECRET_KEY }}
-          oauth_token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-          oauth_token_secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
-          message: |
-            🚀🎉 Version Bumper ${{ steps.version_info.outputs.next_version   }} has been released! 🎉🚀
-            ${{ steps.gh_release.outputs.html_url}}
-
-            #version_bumper #semver
