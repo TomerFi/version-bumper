@@ -74,7 +74,7 @@ The contributing guidelines are [here][6]
 
 The code of conduct is [here][7]
 
-## Contributors
+## Contributors [![all-contributors]][18]
 <!-- editorconfig-checker-disable -->
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
@@ -113,7 +113,9 @@ The code of conduct is [here][7]
 [15]: https://www.npmjs.com/package/conventional-changelog-express
 [16]: https://www.npmjs.com/package/conventional-changelog-jquery
 [17]: https://www.npmjs.com/package/conventional-changelog-jshint
+[18]: https://allcontributors.org/
 <!-- Badges Links -->
+[all-contributors]: https://img.shields.io/github/all-contributors/tomerfi/version-bumper?color=ee8449&style=flat-square
 [docker-pulls]: https://img.shields.io/docker/pulls/tomerfi/version-bumper.svg?logo=docker&label=pulls
 [docker-version]: https://img.shields.io/docker/v/tomerfi/version-bumper?color=%230A6799&logo=docker
 [gh-build-status]: https://github.com/TomerFi/version-bumper/actions/workflows/stage.yml/badge.svg
