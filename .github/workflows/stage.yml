@@ -39,7 +39,7 @@ jobs:
           password: ${{ secrets.GPR_PAT }}
 
       - name: Build images and push to GHCR
-        uses: docker/build-push-action@v5.0.0
+        uses: docker/build-push-action@v5.1.0
         with:
           context: .
           push: true
