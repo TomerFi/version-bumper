@@ -77,7 +77,7 @@ jobs:
 
       - name: Create a release name
         id: release_name
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             var retval = '${{ steps.version_info.outputs.next_version }}'
@@ -88,7 +88,7 @@ jobs:
 
       - name: Create a release
         id: gh_release
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const repo_name = context.payload.repository.full_name
