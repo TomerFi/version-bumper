@@ -14,10 +14,9 @@
 
 default: single
 
-# dogfooding
-VERSION = $(strip $(shell bash entrypoint.sh | cut -f1 -d" " | xargs ))
+VERSION ?= $(strip $(shell bash entrypoint.sh | cut -f1 -d" " | xargs ))
+IMAGE_NAME ?= tomerfi/version-bumper
 
-IMAGE_NAME = tomerfi/version-bumper
 GIT_COMMIT = $(strip $(shell git rev-parse --short HEAD))
 CURRENT_DATE = $(strip $(shell date -u +"%Y-%m-%dT%H:%M:%SZ"))
 FULL_IMAGE_NAME = $(strip $(IMAGE_NAME):$(VERSION))
