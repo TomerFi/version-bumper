@@ -16,6 +16,7 @@ default: single
 
 VERSION ?= $(strip $(shell bash entrypoint.sh | cut -f1 -d" " | xargs ))
 IMAGE_NAME ?= tomerfi/version-bumper
+IMAGE_BUILDER ?= podman
 
 GIT_COMMIT = $(strip $(shell git rev-parse --short HEAD))
 CURRENT_DATE = $(strip $(shell date -u +"%Y-%m-%dT%H:%M:%SZ"))
@@ -24,16 +25,15 @@ FULL_IMAGE_NAME = $(strip $(IMAGE_NAME):$(VERSION))
 PLATFORMS = linux/amd64,linux/arm/v7,linux/arm64/v8
 
 single:
-	docker buildx build \
+	$(IMAGE_BUILDER) build \
 	--build-arg VCS_REF=$(GIT_COMMIT) \
 	--build-arg BUILD_DATE=$(CURRENT_DATE) \
 	--build-arg VERSION=$(VERSION) \
-	--output type=docker \
 	--tag $(FULL_IMAGE_NAME) \
 	--tag $(IMAGE_NAME):latest .
 
 multi: enable-multiarch
-	docker buildx build \
+	$(IMAGE_BUILDER) buildx build \
 	--build-arg VCS_REF=$(GIT_COMMIT) \
 	--build-arg BUILD_DATE=$(CURRENT_DATE) \
 	--build-arg VERSION=$(VERSION) \
@@ -42,13 +42,13 @@ multi: enable-multiarch
 	--tag $(IMAGE_NAME):latest .
 
 lint:
-	docker run --rm \
+	$(IMAGE_BUILDER) run --rm \
 	-e RUN_LOCAL=true -e IGNORE_GITIGNORED_FILES=true -e IGNORE_GENERATED_FILES=true \
 	-e VALIDATE_DOCKERFILE=true -e VALIDATE_EDITORCONFIG=true -e VALIDATE_GITHUB_ACTIONS=true \
 	-e VALIDATE_MARKDOWN=true -e VALIDATE_YAML=true -e VALIDATE_SHELL_SHFMT=true \
 	-v $PWD:/tmp/lint ghcr.io/github/super-linter:slim-v4
 
 enable-multiarch:
-	docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+	$(IMAGE_BUILDER) run --rm --privileged multiarch/qemu-user-static --reset -p yes
 
 .PHONY: single multi lint enable-multiarch
