@@ -15,27 +15,43 @@ const bumpTypes = ['major', 'minor', 'patch']
  */
 
 async function bumper(opts) {
-    if (!shell.test('-d', opts.path)) {
-        throw new Error(`${opts.path} is unreachable`)
-    }
-
-    if (!(shell.cd(opts.path).exec(`git rev-parse --is-inside-work-tree`).stdout)) {
-        throw new Error(`${opts.path} is not a git repository`)
+    // options verification
+    if (opts.source === 'git') {
+        // if source is 'git', verify specified path exists
+        if (!shell.test('-d', opts.path)) {
+            throw new Error(`${opts.path} is unreachable`)
+        }
+        // if source is 'git', verify the source is a git working tree
+        if (!(shell.exec(`cd ${opts.path} && git rev-parse --is-inside-work-tree`).stdout)) {
+            throw new Error(`${opts.path} is not a git repository`)
+        }
+    } else {
+        // 'auto' discovery of tags requires a git repository. if source is not 'git', a bump type must be specified
+        if (!bumpTypes.includes(opts.bump)) {
+            throw new Error(`for ${opts.source}, please use ${bumpTypes} bump type instead of ${opts.bump}`)
+        }
     }
 
     let next = '1.0.0' // default when original non semver
     let bump = 'none' // default when not bump is performed
-    let original = opts.source === 'git' ? (await semverTags())[0] : opts?.source
 
-    if (semver.valid(original)) {
-        if (opts.source !== 'git' && !bumpTypes.includes(opts.bump)) {
-            throw new Error(`for ${opts.source}, please use ${bumpTypes} bump type instead of ${opts.bump}`)
-        }
-        bump = bumpTypes.includes(opts.bump) ? opts.bump :
-            (await recBump({preset: opts.preset})).releaseType
-        next = semver.inc(original, bump)
+    let original =  opts.source === 'git' // if source is 'git' fetch latest semver tag from git
+        ? (await semverTags({cwd: opts.path, skipUnstable: true}))[0]
+        : opts?.source
+
+    let cleanOrig = semver.clean(original) // for robustness, we work with the clean version internally
+    if (!semver.valid(cleanOrig)) {
+        throw new Error(`${original} is not a valid semver`)
     }
 
-    let dev = `${next}${opts.label}`
+    bump = bumpTypes.includes(opts.bump) // if not known manual bump type, use auto type based on commits
+        ? opts.bump
+        : (await recBump({preset: opts.preset})).releaseType
+
+    next = original.startsWith('v') // patch for versions that starts with v
+        ? `v${semver.inc(cleanOrig, bump)}`
+        : semver.inc(cleanOrig, bump)
+
+    let dev = `${next}${opts.label}` // concatenate development iteration label
     return {original, bump, next, dev}
 }

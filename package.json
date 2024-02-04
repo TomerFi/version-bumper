@@ -26,7 +26,8 @@
     "npm": ">= 9.0.0"
   },
   "scripts": {
-    "lint": "eslint src --ext js"
+    "lint": "eslint src --ext js",
+    "test": "mocha --check-leaks --fail-zero --color --ui tdd --recursive ./tests/"
   },
   "dependencies": {
     "conventional-changelog-angular": "7.0.0",
@@ -46,7 +47,10 @@
     "shelljs": "^0.8.5"
   },
   "devDependencies": {
+    "chai": "^4.4.1",
+    "chai-as-promised": "^7.1.1",
     "eslint": "^8.29.0",
-    "eslint-plugin-editorconfig": "^4.0.2"
+    "eslint-plugin-editorconfig": "^4.0.2",
+    "mocha": "^10.2.0"
   }
 }
