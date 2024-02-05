@@ -1,7 +1,7 @@
 {
   "name": "version-bumper",
   "version": "2.1.2",
-  "description": "TODO",
+  "description": "NPM Executable and Package for figuring out your next Semantic Version",
   "homepage": "https://github.com/TomerFi/version-bumper#readme",
   "license": "ISC",
   "author": {
@@ -12,6 +12,7 @@
   "bugs": "https://github.com/TomerFi/version-bumper/issues",
   "keywords": [
     "semver",
+    "semantic version",
     "automation",
     "cli"
   ],

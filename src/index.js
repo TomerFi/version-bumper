@@ -7,5 +7,5 @@
  * @returns {Promise<original: '2.1.4'|bump: 'major'|next: '3.0.0'|dev: '3.0.0-dev'>}
  */
 module.exports = async function (source = 'git', path = './', bump = 'auto', label = '-dev', preset = 'angular') {
-    return require('./bumper')({source, path, bump, label, preset})
+  return require('./bumper')({source, path, bump, label, preset})
 }
