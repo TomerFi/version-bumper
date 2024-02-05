@@ -10,7 +10,7 @@ shell.config.silent = true
 const bumpTypes = ['major', 'minor', 'patch']
 
 /**
- * @param opts i.e. {source: git, path: './', bump: 'auto', label: '-dev', preset: 'conventionalcommits'}
+ * @param opts i.e. {source: git, path: './', bump: 'auto', label: '-dev', preset: 'angular'}
  * @returns { original: '2.1.4', bump: 'major', next: '3.0.0', dev: '3.0.0-dev' }
  */
 
@@ -32,25 +32,27 @@ async function bumper(opts) {
         }
     }
 
-    let next = '1.0.0' // default when original non semver
+    let next = '1.0.0' // default when no original
     let bump = 'none' // default when not bump is performed
 
     let original =  opts.source === 'git' // if source is 'git' fetch latest semver tag from git
-        ? (await semverTags({cwd: opts.path, skipUnstable: true}))[0]
+        ? (await semverTags({cwd: opts.path, skipUnstable: true}))[0] || 'none' // default when no tags
         : opts?.source
 
-    let cleanOrig = semver.clean(original) // for robustness, we work with the clean version internally
-    if (!semver.valid(cleanOrig)) {
-        throw new Error(`${original} is not a valid semver`)
+    if ('none' !== original) {
+        let cleanOrig = semver.clean(original) // for robustness, we work with the clean version internally
+        if (!semver.valid(cleanOrig)) {
+            throw new Error(`${original} is not a valid semver`)
+        }
+
+        bump = bumpTypes.includes(opts.bump) // if not known manual bump type, use auto type based on commits
+            ? opts.bump
+            : (await recBump({preset: opts.preset, cwd: opts.path})).releaseType
+
+        next = original.startsWith('v') // patch for versions that starts with v
+            ? `v${semver.inc(cleanOrig, bump)}`
+            : semver.inc(cleanOrig, bump)
     }
-
-    bump = bumpTypes.includes(opts.bump) // if not known manual bump type, use auto type based on commits
-        ? opts.bump
-        : (await recBump({preset: opts.preset})).releaseType
-
-    next = original.startsWith('v') // patch for versions that starts with v
-        ? `v${semver.inc(cleanOrig, bump)}`
-        : semver.inc(cleanOrig, bump)
 
     let dev = `${next}${opts.label}` // concatenate development iteration label
     return {original, bump, next, dev}

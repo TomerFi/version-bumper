@@ -19,7 +19,7 @@ const opts = require('minimist')(process.argv.slice(2), {
         'source': 'git',
         'bump': 'auto',
         'label': '-dev',
-        'preset': 'conventionalcommits',
+        'preset': 'angular',
     },
 });
 
@@ -30,7 +30,7 @@ function help() {
         version-bumper [options] [path]
         
     Example
-        version-bumper --source git --repo path/to/git/repo --bump auto --label '-dev' --preset conventionalcommits
+        version-bumper --source git --repo path/to/git/repo --bump auto --label '-dev' --preset angular
         version-bumper --source 1.2.3 --bump major
         version-bumper path/to/git/repo
     
@@ -39,7 +39,7 @@ function help() {
          -r, --repo         When source is 'git', path of the git repository. Defaults to './'. Overrides first argument.
          -b, --bump         Target bump, one of major, minor, patch, or auto. Defaults to 'auto'. Source non-git, requires non-auto.
          -l, --label        Development iteration build label. Defaults to '-dev'.
-         -p, --preset       Conventional preset to use. Defaults to 'conventionalcommits'.
+         -p, --preset       Conventional preset to use. Defaults to 'angular'.
          -v, --version      Print the tool version.
          -h, --help         Show this help message.
     `)
