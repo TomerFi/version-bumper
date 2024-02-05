@@ -29,15 +29,20 @@ function help() {
         version-bumper [options]
         version-bumper [options] [path]
         
+        Note, when running from a container image, the 'version-bumper' command is implicit.
+        
     Example
         version-bumper --source git --repo path/to/git/repo --bump auto --label '-dev' --preset angular
         version-bumper --source 1.2.3 --bump major
         version-bumper path/to/git/repo
+
+        Output Example
+            { original: '2.1.4', bump: 'patch', next: '2.1.5', dev: '2.1.5-dev' }
     
     Options
          -s, --source       Source for the bump, any semver string or 'git' to fetch from tags. Defaults to 'git'.
          -r, --repo         When source is 'git', path of the git repository. Defaults to './'. Overrides first argument.
-         -b, --bump         Target bump, one of major, minor, patch, or auto. Defaults to 'auto'. Source non-git, requires non-auto.
+         -b, --bump         Target bump, 'major' | 'minor' | 'patch' | 'auto'. Defaults to 'auto' which can only be used with a 'git' source.
          -l, --label        Development iteration build label. Defaults to '-dev'.
          -p, --preset       Conventional preset to use. Defaults to 'angular'.
          -v, --version      Print the tool version.
