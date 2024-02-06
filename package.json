@@ -1,7 +1,7 @@
 {
   "name": "version-bumper",
   "version": "2.1.2",
-  "description": "NPM Executable and Package for figuring out your next Semantic Version",
+  "description": "A Node.js executable package for determining  semantic version bumps based on conventional commits",
   "homepage": "https://github.com/TomerFi/version-bumper#readme",
   "license": "ISC",
   "author": {
@@ -14,7 +14,8 @@
     "semver",
     "semantic version",
     "automation",
-    "cli"
+    "cli",
+    "conventional commits"
   ],
   "bin": "src/cli.js",
   "main": "src/index.js",
