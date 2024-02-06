@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+/** Entrypoint for the execution of the bumper function. */
+
+/** Configuring options for the CLI execution. */
 const opts = require('minimist')(process.argv.slice(2), {
   string: ['source', 'repo', 'bump', 'label', 'preset'],
   boolean: ['version', 'help'],
@@ -21,7 +24,7 @@ const opts = require('minimist')(process.argv.slice(2), {
     'label': '-dev',
     'preset': 'angular',
   },
-});
+})
 
 function help() {
   console.log(`

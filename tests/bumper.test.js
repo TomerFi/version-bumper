@@ -137,6 +137,7 @@ suite('Test automatic bumps', () => {
   })
 })
 
+/** Utility function for creating a repository for testing purposes. */
 function createRepoContent(target, tag = false, ...cmds) {
   shell.mkdir('-p', target)
   shell.pushd(target)

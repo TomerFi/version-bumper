@@ -10,10 +10,12 @@ shell.config.silent = true
 const bumpTypes = ['major', 'minor', 'patch']
 
 /**
- * @param opts i.e. {source: git, path: './', bump: 'auto', label: '-dev', preset: 'angular'}
- * @returns { original: '2.1.4', bump: 'major', next: '3.0.0', dev: '3.0.0-dev' }
+ * The bumper function will either figure out the next semver version based on conventional commits in a git repository,
+ * or bump a target semver based on the options passed. The option fields are documented in index.js.
+ *
+ * @param {{source: string, path: string, bump: string, label: string, preset: string}} opts options to configure bumper
+ * @returns {Promise<{original: string, bump: string, next: string, dev: string}>}
  */
-
 async function bumper(opts) {
   // options verification
   if (opts.source === 'git') {
@@ -40,7 +42,7 @@ async function bumper(opts) {
   let bump = 'none' // default when no bump is performed
 
   let original =  opts.source === 'git' // if source is 'git' fetch latest semver tag from git
-    ? (await semverTags({cwd: opts.path, skipUnstable: true}))[0] || 'none' // default when no tags
+    ? (await semverTags({cwd: opts.path, skipUnstable: true}))[0] || 'none' // none is default when no tags
     : opts?.source
 
   if ('none' !== original) {
