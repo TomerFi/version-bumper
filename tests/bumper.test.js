@@ -9,13 +9,13 @@ chai.use(require('chai-as-promised'))
 suite('Test manual bumps', () => {
   [{
     opts: {source: '1.2.3', bump: 'major', label: '-dev'},
-    output: {original: '1.2.3', bump: 'major', next: '2.0.0', dev: '2.0.1-dev'}
+    output: {current: '1.2.3', bump: 'major', next: '2.0.0', dev: '2.0.1-dev'}
   },{
     opts: {source: '1.2.3', bump: 'minor', label: '-alpha1'},
-    output: {original: '1.2.3', bump: 'minor', next: '1.3.0', dev: '1.3.1-alpha1'}
+    output: {current: '1.2.3', bump: 'minor', next: '1.3.0', dev: '1.3.1-alpha1'}
   },{
     opts: {source: 'v1.2.3', bump: 'patch', label: '-beta1'},
-    output: {original: 'v1.2.3', bump: 'patch', next: 'v1.2.4', dev: 'v1.2.5-beta1'}
+    output: {current: 'v1.2.3', bump: 'patch', next: 'v1.2.4', dev: 'v1.2.5-beta1'}
   }].forEach(t => {
     test(`testing with ${JSON.stringify(t.opts)}
       expecting output ${JSON.stringify(t.output)}`, async () => {
@@ -72,7 +72,7 @@ suite('Test automatic bumps', () => {
     createRepoContent(noTags)
 
     return expect(bumperSut({source: 'git', bump: 'auto', label: '-alpha1', preset: 'angular', path: noTags}))
-      .to.eventually.deep.equal({original: 'none', bump: 'none', next: '1.0.0', dev: '1.0.1-alpha1'})
+      .to.eventually.deep.equal({current: 'none', bump: 'none', next: '1.0.0', dev: '1.0.1-alpha1'})
   })
 
   test(`testing with a repository with no new commits
@@ -82,7 +82,7 @@ suite('Test automatic bumps', () => {
     createRepoContent(noCommits, true)
 
     return expect(bumperSut({source: 'git', bump: 'auto', label: '-dev.0', preset: 'angular', path: noCommits}))
-      .to.eventually.deep.equal({original: '1.2.3', bump: 'patch', next: '1.2.4', dev: '1.2.5-dev.0'})
+      .to.eventually.deep.equal({current: '1.2.3', bump: 'patch', next: '1.2.4', dev: '1.2.5-dev.0'})
   })
 
   test(`testing with a fix type commit
@@ -98,7 +98,7 @@ suite('Test automatic bumps', () => {
     )
 
     return expect(bumperSut({source: 'git', bump: 'auto', label: '-alpha1', preset: 'angular', path: patchBump}))
-      .to.eventually.deep.equal({original: '1.2.3', bump: 'patch', next: '1.2.4', dev: '1.2.5-alpha1'})
+      .to.eventually.deep.equal({current: '1.2.3', bump: 'patch', next: '1.2.4', dev: '1.2.5-alpha1'})
   })
 
   test(`testing with a feat type commit
@@ -114,7 +114,7 @@ suite('Test automatic bumps', () => {
     )
 
     return expect(bumperSut({source: 'git', bump: 'auto', label: '-alpha1', preset: 'angular', path: minorBump}))
-      .to.eventually.deep.equal({original: '1.2.3', bump: 'minor', next: '1.3.0', dev: '1.3.1-alpha1'})
+      .to.eventually.deep.equal({current: '1.2.3', bump: 'minor', next: '1.3.0', dev: '1.3.1-alpha1'})
   })
 
   test(`testing with a breaking change commit body
@@ -133,7 +133,7 @@ suite('Test automatic bumps', () => {
     )
 
     return expect(bumperSut({source: 'git', bump: 'auto', label: '-alpha1', preset: 'angular', path: minorBump}))
-      .to.eventually.deep.equal({original: '1.2.3', bump: 'major', next: '2.0.0', dev: '2.0.1-alpha1'})
+      .to.eventually.deep.equal({current: '1.2.3', bump: 'major', next: '2.0.0', dev: '2.0.1-alpha1'})
   })
 })
 

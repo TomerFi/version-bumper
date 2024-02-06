@@ -14,7 +14,7 @@ const bumpTypes = ['major', 'minor', 'patch']
  * or bump a target semver based on the options passed. The option fields are documented in index.js.
  *
  * @param {{source: string, path: string, bump: string, label: string, preset: string}} opts options to configure bumper
- * @returns {Promise<{original: string, bump: string, next: string, dev: string}>}
+ * @returns {Promise<{current: string, bump: string, next: string, dev: string}>}
  */
 async function bumper(opts) {
   // options verification
@@ -38,32 +38,32 @@ async function bumper(opts) {
     throw new Error(`development iteration label ${opts.label} breaks semver`)
   }
 
-  let next = '1.0.0' // default when no original
+  let next = '1.0.0' // default when no current
   let bump = 'none' // default when no bump is performed
 
-  let original =  opts.source === 'git' // if source is 'git' fetch latest semver tag from git
+  let current =  opts.source === 'git' // if source is 'git' fetch latest semver tag from git
     ? (await semverTags({cwd: opts.path, skipUnstable: true}))[0] || 'none' // none is default when no tags
     : opts?.source
 
-  if ('none' !== original) {
-    let cleanOrig = semver.clean(original) // for robustness, we work with the clean version internally
-    if (!semver.valid(cleanOrig)) {
-      throw new Error(`${original} is not a valid semver`)
+  if ('none' !== current) {
+    let cleanCurrent = semver.clean(current) // for robustness, we work with the clean version internally
+    if (!semver.valid(cleanCurrent)) {
+      throw new Error(`${current} is not a valid semver`)
     }
 
     bump = bumpTypes.includes(opts.bump) // if not known manual bump type, use auto type based on commits
       ? opts.bump
       : (await recBump({preset: opts.preset, cwd: opts.path})).releaseType
 
-    next = original.startsWith('v') // patch for versions that starts with v
-      ? `v${semver.inc(cleanOrig, bump)}`
-      : semver.inc(cleanOrig, bump)
+    next = current.startsWith('v') // patch for versions that starts with v
+      ? `v${semver.inc(cleanCurrent, bump)}`
+      : semver.inc(cleanCurrent, bump)
   }
 
   // concatenate development iteration label
-  let dev = original.startsWith('v') // patch for versions that starts with v
+  let dev = current.startsWith('v') // patch for versions that starts with v
     ? `v${semver.inc(next, 'patch')}${opts.label}`
     : `${semver.inc(next, 'patch')}${opts.label}`
 
-  return {original, bump, next, dev}
+  return {current, bump, next, dev}
 }

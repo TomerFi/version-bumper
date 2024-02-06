@@ -1,7 +1,7 @@
 # Version Bumper<br/>[![docker-version-badge]][docker-image] [![npm-version-badge]][npm-package]
 
-A Node.js executable package for determining [semantic version][semver-spec] bumps based on
-[conventional commits][conventional-commits].
+A Node.js executable package determining [semantic version][semver-spec] bumps based on the
+[conventional commits spec][conventional-commits].
 
 > See also [version-bumper-action][version-bumper-action] _GitHub_ action.
 
@@ -15,21 +15,18 @@ A Node.js executable package for determining [semantic version][semver-spec] bum
 The output was changed from a space-delimited text to a <em>JSON</em> object:<br/>
 <ul>
 <li><strong>old</strong> <code>2.1.5 2.1.6-dev</code><br/></li>
-<li><strong>New</strong><code>{"original":"2.1.4","bump":"patch","next":"2.1.5","dev":"2.1.6-dev"}</code></li>
+<li><strong>new</strong><code>{"current":"2.1.4","bump":"patch","next":"2.1.5","dev":"2.1.6-dev"}</code></li>
 </ul>
 </li>
 <br/>
 
 <li>
-Option flags changes were modified:
+Changes in the option flags:
   <ul>
   <li><strong>--changelog</strong> was removed.</li>
-  <li><strong>--outputtype was removed.</strong></li>
-  <li><strong>--repopath</strong> was changed to <strong>--repo</strong>.<br/>
-    <em>repopath</em> will still work, but might be removed in the future.
-  </li>
-  <li><strong>--bumpoverride</strong> was changed to <strong>--bump</strong>.<br/>
-    <em>bumpoverride</em> will still work, but might be removed in the future.
+  <li><strong>--outputtype</strong> was removed.</li>
+  <li><strong>--repopath</strong> was changed to <strong>--repo</strong> (<em>repopath</em> will eventually be removed).</li>
+  <li><strong>--bumpoverride</strong> was changed to <strong>--bump</strong> (<em>bumpoverride</em> will eventually be removed).
   </li>
   </ul>
 
@@ -37,14 +34,14 @@ For more info, run the tool with the <em>-h</em> flag (<em>--help<em/>).
 </li>
 <br/>
 
-<li>Container image mount target was changed:
+<li>Changes in the container image mount target:
 <ul>
 <li>from <strong>/usr/share/repo</strong></li>
 <li>to <strong>/repo</strong></li>
 </ul>
 </li><br/>
 
-<li>Output to a file is <strong>no longer supported</strong>, use pipes in needed.</li><br/>
+<li>Output to a file is <strong>no longer supported</strong>, use pipes if needed.</li><br/>
 
 <li>Changelog file creation is <strong>no longer supported</strong>.</li>
 
@@ -60,9 +57,9 @@ We also push a container image encapsulating the executable package to [docker h
 ### Automatic Bumps
 
 The following examples assume:
-The current working directory is a _git_ repository.
-Latest semver tag is _2.1.4_.
-Commit messages are based on the [conventional commits spec][conventional-commits].
+  - The current working directory is a _git_ repository.
+  - The latest semver tag is _2.1.4_.
+  - Commit messages are based on the [conventional commits spec][conventional-commits].
 
 ```shell
 $ npx version-bumper
@@ -83,19 +80,19 @@ $ podman run --privileged --rm -v $PWD:/repo:ro docker.io/tomerfi/version-bumper
 For commits with a _fix_ type, the output of the above commands will be:
 
 ```json
-{"original":"2.1.4","bump":"patch","next":"2.1.5","dev":"2.1.6-dev"}
+{"current":"2.1.4","bump":"patch","next":"2.1.5","dev":"2.1.6-dev"}
 ```
 
 For commits with a _feat_ type, the output of the above commands will be:
 
 ```json
-{"original":"2.1.4","bump":"minor","next":"2.2.0","dev":"2.2.1-dev"}
+{"current":"2.1.4","bump":"minor","next":"2.2.0","dev":"2.2.1-dev"}
 ```
 
 For commits containing the text _BREAKING CHANGE_ in the message body, the output of the above commands will be:
 
 ```json
-{"original":"2.1.4","bump":"major","next":"3.0.0","dev":"3.0.1-dev"}
+{"current":"2.1.4","bump":"major","next":"3.0.0","dev":"3.0.1-dev"}
 ```
 
 ### Manual Bumps
@@ -107,7 +104,7 @@ $ npx version-bumper -s 2.1.4 -b patch
 
 $ docker run --rm tomerfi/version-bumper:latest -s 2.1.4 -b patch
 
-{"original":"2.1.4","bump":"patch","next":"2.1.5","dev":"2.1.6-dev"}
+{"current":"2.1.4","bump":"patch","next":"2.1.5","dev":"2.1.6-dev"}
 ```
 
 ```shell
@@ -115,7 +112,7 @@ $ npx version-bumper -s 2.1.4 -b minor
 
 $ docker run --rm tomerfi/version-bumper:latest -s 2.1.4 -b minor
 
-{"original":"2.1.4","bump":"minor","next":"2.2.0","dev":"2.2.1-dev"}
+{"current":"2.1.4","bump":"minor","next":"2.2.0","dev":"2.2.1-dev"}
 ```
 
 ```shell
@@ -123,7 +120,7 @@ $ npx version-bumper -s 2.1.4 -b major
 
 $ docker run --rm tomerfi/version-bumper:latest -s 2.1.4 -b major
 
-{"original":"2.1.4","bump":"major","next":"3.0.0","dev":"3.0.1-dev"}
+{"current":"2.1.4","bump":"major","next":"3.0.0","dev":"3.0.1-dev"}
 ```
 
 ## Contributors [![all-contributors-badge]][all-contributors]

@@ -40,7 +40,7 @@ function help() {
     version-bumper path/to/git/repo
 
     Output Example
-      { original: '2.1.4', bump: 'patch', next: '2.1.5', dev: '2.1.5-dev' }
+      { current: '2.1.4', bump: 'patch', next: '2.1.5', dev: '2.1.5-dev' }
 
   Options
      -s, --source       Source for the bump, any semver string or 'git' to fetch from tags. Defaults to 'git'.
