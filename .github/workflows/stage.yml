@@ -53,12 +53,6 @@ jobs:
       - name: Setup docker buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Setup qemu
-        uses: docker/setup-qemu-action@v3
-
-      - name: Setup docker buildx
-        uses: docker/setup-buildx-action@v3
-
       - name: Cache image layers
         uses: actions/cache@v4
         with:
