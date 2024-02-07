@@ -5,6 +5,7 @@ const bumperSut = require('../src/bumper.js')
 
 expect = chai.expect
 chai.use(require('chai-as-promised'))
+shell.config.silent = true
 
 suite('Test manual bumps', () => {
   [{

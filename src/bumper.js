@@ -3,9 +3,8 @@ module.exports = bumper
 const recBump = require(`conventional-recommended-bump`)
 const semverTags = require('git-semver-tags')
 const semver = require('semver')
-const shell = require('shelljs')
-
-shell.config.silent = true
+const fs = require('node:fs')
+const { execSync } = require('child_process');
 
 const bumpTypes = ['major', 'minor', 'patch']
 
@@ -20,11 +19,13 @@ async function bumper(opts) {
   // options verification
   if (opts.source === 'git') {
     // if source is 'git', verify specified path exists
-    if (!shell.test('-d', opts.path)) {
+    if (!fs.existsSync(opts.path)) {
       throw new Error(`${opts.path} is unreachable`)
     }
     // if source is 'git', verify the source is a git working tree
-    if (!(shell.exec(`cd ${opts.path} && git rev-parse --is-inside-work-tree`).stdout)) {
+    try {
+      execSync('git rev-parse --is-inside-work-tree', {cwd: `${opts.path}`, stdio: 'pipe'})
+    } catch (err) {
       throw new Error(`${opts.path} is not a git repository`)
     }
   } else {

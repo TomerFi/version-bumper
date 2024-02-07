@@ -45,14 +45,14 @@
     "conventional-recommended-bump": "9.0.0",
     "git-semver-tags": "^7.0.1",
     "minimist": "^1.2.8",
-    "semver": "^7.5.4",
-    "shelljs": "^0.8.5"
+    "semver": "^7.5.4"
   },
   "devDependencies": {
     "chai": "^4.4.1",
     "chai-as-promised": "^7.1.1",
     "eslint": "^8.29.0",
     "eslint-plugin-editorconfig": "^4.0.2",
-    "mocha": "^10.2.0"
+    "mocha": "^10.2.0",
+    "shelljs": "^0.8.5"
   }
 }

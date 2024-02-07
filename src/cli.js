@@ -47,7 +47,7 @@ function help() {
      -r, --repo         When source is 'git', path of the git repository. Defaults to './'. Overrides first argument.
      -b, --bump         Target bump, 'major' | 'minor' | 'patch' | 'auto'. Defaults to 'auto' which can only be used with a 'git' source.
      -l, --label        Development iteration build label. Defaults to '-dev'.
-     -p, --preset       Conventional preset to use. Defaults to 'angular'.
+     -p, --preset       Conventional commits preset to use. Defaults to 'angular'.
      -v, --version      Print the tool version.
      -h, --help         Show this help message.
   `)
