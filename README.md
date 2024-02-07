@@ -123,6 +123,15 @@ $ docker run --rm tomerfi/version-bumper:latest -s 2.1.4 -b major
 {"current":"2.1.4","bump":"major","next":"3.0.0","dev":"3.0.1-dev"}
 ```
 
+### Node.js Package
+
+```js
+const bumper = require('version-bumper')
+
+// prints { current: '2.1.4', bump: 'minor', next: '2.2.0', dev: '2.2.1-dev' }
+bumper({source: "2.1.4", bump: 'minor'}).then(bump => console.log(bump))
+```
+
 ## Contributors [![all-contributors-badge]][all-contributors]
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
