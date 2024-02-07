@@ -53,17 +53,11 @@ jobs:
       - name: Setup docker buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Cache image layers
-        uses: actions/cache@v4
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-image-layers-${{ hashFiles('Dockerfile') }}
-
       - name: Build image
         uses: docker/build-push-action@v5
         with:
           tags: tomerfi/version-bumper:staging
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           load: true
 
