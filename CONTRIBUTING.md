@@ -7,7 +7,7 @@
 - Commit your work
 - Create a pull request against the `master` branch
 - Take the corresponding [GitHub Action](https://github.com/TomerFi/version-bumper-action) into consideration when
-  working.
+  working
 
 ## Project walkthrough
 

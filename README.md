@@ -23,9 +23,9 @@ The output was changed from a space-delimited text to a <em>JSON</em> object:<br
 <li>
 Changes in the option flags:
   <ul>
-  <li><strong>--changelog</strong> was removed.</li>
-  <li><strong>--outputtype</strong> was removed.</li>
-  <li><strong>--preset</strong> was removed.</li>
+  <li><strong>--changelog</strong> was removed. Creating a changelog file is no longer supported.</li>
+  <li><strong>--outputtype</strong> was removed. Output to file is no longer supported.</li>
+  <li><strong>--preset</strong> was removed. Selecting a preset is no longer supported.</li>
   <li><strong>--repopath</strong> was changed to <strong>--repo</strong> (<em>repopath</em> will eventually be removed).</li>
   <li><strong>--bumpoverride</strong> was changed to <strong>--bump</strong> (<em>bumpoverride</em> will eventually be removed).
   </li>
@@ -41,10 +41,6 @@ For more info, run the tool with the <em>-h</em> flag (<em>--help</em>).
 <li>to <strong>/repo</strong></li>
 </ul>
 </li><br/>
-
-<li>Output to a file is <strong>no longer supported</strong>, use pipes if needed.</li><br/>
-
-<li>Changelog file creation is <strong>no longer supported</strong>.</li>
 
 </ul>
 
