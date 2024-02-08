@@ -8,7 +8,10 @@
     "name": "Tomer Figenblat",
     "url": "https://github.com/TomerFi"
   },
-  "repository": "github:TomerFi/version-bumper",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TomerFi/version-bumper.git"
+  },
   "bugs": "https://github.com/TomerFi/version-bumper/issues",
   "keywords": [
     "semver",
@@ -17,7 +20,9 @@
     "cli",
     "conventional commits"
   ],
-  "bin": "src/cli.js",
+  "bin": {
+    "version-bumper": "src/cli.js"
+  },
   "main": "src/index.js",
   "files": [
     "!*",
