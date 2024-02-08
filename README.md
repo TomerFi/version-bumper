@@ -31,7 +31,7 @@ Changes in the option flags:
   </li>
   </ul>
 
-For more info, run the tool with the <em>-h</em> flag (<em>--help<em/>).
+For more info, run the tool with the <em>-h</em> flag (<em>--help</em>).
 </li>
 <br/>
 
@@ -90,7 +90,7 @@ For commits with a _feat_ type, the output of the above commands will be:
 {"current":"2.1.4","bump":"minor","next":"2.2.0","dev":"2.2.1-dev"}
 ```
 
-For commits containing the text _BREAKING CHANGE_ in the message body, the output of the above commands will be:
+For commits containing the text _BREAKING CHANGE_ in their body, the output of the above commands will be:
 
 ```json
 {"current":"2.1.4","bump":"major","next":"3.0.0","dev":"3.0.1-dev"}
