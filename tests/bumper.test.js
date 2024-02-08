@@ -52,7 +52,7 @@ suite('Test automatic bumps', () => {
   test(`testing with an unreachable
       expecting "folder is unreachable" error message`, async () => {
 
-    return expect(bumperSut({source: 'git', bump: 'auto', preset: 'angular', path: 'your-non-existing-folder'}))
+    return expect(bumperSut({source: 'git', bump: 'auto', path: 'your-non-existing-folder'}))
       .to.eventually.be.rejectedWith('your-non-existing-folder is unreachable')
   })
 
@@ -62,7 +62,7 @@ suite('Test automatic bumps', () => {
     let nonGit = path.join(workspace, 'non-git')
     shell.mkdir('-p', nonGit)
 
-    return expect(bumperSut({source: 'git', bump: 'auto', preset: 'angular', path: nonGit}))
+    return expect(bumperSut({source: 'git', bump: 'auto', path: nonGit}))
       .to.eventually.be.rejectedWith(`${nonGit} is not a git repository`)
   })
 
@@ -72,7 +72,7 @@ suite('Test automatic bumps', () => {
     let noTags = path.join(workspace, 'no-tags')
     createRepoContent(noTags)
 
-    return expect(bumperSut({source: 'git', bump: 'auto', label: '-alpha1', preset: 'angular', path: noTags}))
+    return expect(bumperSut({source: 'git', bump: 'auto', label: '-alpha1', path: noTags}))
       .to.eventually.deep.equal({current: 'none', bump: 'none', next: '1.0.0', dev: '1.0.1-alpha1'})
   })
 
@@ -82,7 +82,7 @@ suite('Test automatic bumps', () => {
     let noCommits = path.join(workspace, 'no-commits')
     createRepoContent(noCommits, true)
 
-    return expect(bumperSut({source: 'git', bump: 'auto', label: '-dev.0', preset: 'angular', path: noCommits}))
+    return expect(bumperSut({source: 'git', bump: 'auto', label: '-dev.0', path: noCommits}))
       .to.eventually.deep.equal({current: '1.2.3', bump: 'patch', next: '1.2.4', dev: '1.2.5-dev.0'})
   })
 
@@ -98,7 +98,7 @@ suite('Test automatic bumps', () => {
       'git commit -m "fix: added fix_file.file"'
     )
 
-    return expect(bumperSut({source: 'git', bump: 'auto', label: '-alpha1', preset: 'angular', path: patchBump}))
+    return expect(bumperSut({source: 'git', bump: 'auto', label: '-alpha1', path: patchBump}))
       .to.eventually.deep.equal({current: '1.2.3', bump: 'patch', next: '1.2.4', dev: '1.2.5-alpha1'})
   })
 
@@ -114,7 +114,7 @@ suite('Test automatic bumps', () => {
       'git commit -m "feat: added feat_file.file"'
     )
 
-    return expect(bumperSut({source: 'git', bump: 'auto', label: '-alpha1', preset: 'angular', path: minorBump}))
+    return expect(bumperSut({source: 'git', bump: 'auto', label: '-alpha1', path: minorBump}))
       .to.eventually.deep.equal({current: '1.2.3', bump: 'minor', next: '1.3.0', dev: '1.3.1-alpha1'})
   })
 
@@ -133,7 +133,7 @@ suite('Test automatic bumps', () => {
       "`
     )
 
-    return expect(bumperSut({source: 'git', bump: 'auto', label: '-alpha1', preset: 'angular', path: minorBump}))
+    return expect(bumperSut({source: 'git', bump: 'auto', label: '-alpha1', path: minorBump}))
       .to.eventually.deep.equal({current: '1.2.3', bump: 'major', next: '2.0.0', dev: '2.0.1-alpha1'})
   })
 })

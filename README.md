@@ -25,6 +25,7 @@ Changes in the option flags:
   <ul>
   <li><strong>--changelog</strong> was removed.</li>
   <li><strong>--outputtype</strong> was removed.</li>
+  <li><strong>--preset</strong> was removed.</li>
   <li><strong>--repopath</strong> was changed to <strong>--repo</strong> (<em>repopath</em> will eventually be removed).</li>
   <li><strong>--bumpoverride</strong> was changed to <strong>--bump</strong> (<em>bumpoverride</em> will eventually be removed).
   </li>

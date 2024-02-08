@@ -3,6 +3,7 @@ module.exports = bumper
 const recBump = require(`conventional-recommended-bump`)
 const semverTags = require('git-semver-tags')
 const semver = require('semver')
+const conventionalPreset = require('conventional-changelog-conventionalcommits')
 const fs = require('node:fs')
 const { execSync } = require('child_process');
 
@@ -12,7 +13,7 @@ const bumpTypes = ['major', 'minor', 'patch']
  * The bumper function will either figure out the next semver version based on conventional commits in a git repository,
  * or bump a target semver based on the options passed. The option fields are documented in index.js.
  *
- * @param {{source: string, path: string, bump: string, label: string, preset: string}} opts options to configure bumper
+ * @param {{source: string, path: string, bump: string, label: string}} opts options to configure bumper
  * @returns {Promise<{current: string, bump: string, next: string, dev: string}>}
  */
 async function bumper(opts) {
@@ -54,7 +55,7 @@ async function bumper(opts) {
 
     bump = bumpTypes.includes(opts.bump) // if not known manual bump type, use auto type based on commits
       ? opts.bump
-      : (await recBump({preset: opts.preset, cwd: opts.path})).releaseType
+      : (await recBump({...(await conventionalPreset()).recommendedBumpOpts ,cwd: opts.path})).releaseType
 
     next = current.startsWith('v') // patch for versions that starts with v
       ? `v${semver.inc(cleanCurrent, bump)}`

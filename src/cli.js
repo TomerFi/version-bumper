@@ -4,14 +4,13 @@
 
 /** Configuring options for the CLI execution. */
 const opts = require('minimist')(process.argv.slice(2), {
-  string: ['source', 'repo', 'bump', 'label', 'preset'],
+  string: ['source', 'repo', 'bump', 'label'],
   boolean: ['version', 'help'],
   alias: {
     's': 'source',
     'r': 'repo',
     'b': 'bump',
     'l': 'label',
-    'p': 'preset',
     'v': 'version',
     'h': 'help',
     // backward compatibility
@@ -22,7 +21,6 @@ const opts = require('minimist')(process.argv.slice(2), {
     'source': 'git',
     'bump': 'auto',
     'label': '-dev',
-    'preset': 'angular',
   },
 })
 
@@ -35,7 +33,7 @@ function help() {
     Note, when running from a container image, the 'version-bumper' command is implicit.
 
   Example
-    version-bumper --source git --repo path/to/git/repo --bump auto --label '-dev' --preset angular
+    version-bumper --source git --repo path/to/git/repo --bump auto --label '-dev'
     version-bumper --source 1.2.3 --bump major
     version-bumper path/to/git/repo
 
@@ -47,7 +45,6 @@ function help() {
      -r, --repo         When source is 'git', path of the git repository. Defaults to './'. Overrides first argument.
      -b, --bump         Target bump, 'major' | 'minor' | 'patch' | 'auto'. Defaults to 'auto' which can only be used with a 'git' source.
      -l, --label        Development iteration build label. Defaults to '-dev'.
-     -p, --preset       Conventional commits preset to use. Defaults to 'angular'.
      -v, --version      Print the tool version.
      -h, --help         Show this help message.
   `)
