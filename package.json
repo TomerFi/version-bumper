@@ -1,0 +1,48 @@
+{
+  "name": "version-bumper",
+  "version": "2.1.2",
+  "description": "A Node.js executable package determining semantic version bumps based on the conventional commits spec.",
+  "homepage": "https://github.com/TomerFi/version-bumper#readme",
+  "license": "ISC",
+  "author": {
+    "name": "Tomer Figenblat",
+    "url": "https://github.com/TomerFi"
+  },
+  "repository": "github:TomerFi/version-bumper",
+  "bugs": "https://github.com/TomerFi/version-bumper/issues",
+  "keywords": [
+    "semver",
+    "semantic version",
+    "automation",
+    "cli",
+    "conventional commits"
+  ],
+  "bin": "src/cli.js",
+  "main": "src/index.js",
+  "files": [
+    "!*",
+    "src/bumper.js"
+  ],
+  "engines": {
+    "node": ">= 18.0.0",
+    "npm": ">= 9.0.0"
+  },
+  "scripts": {
+    "lint": "eslint src --ext js",
+    "test": "mocha --check-leaks --fail-zero --color --ui tdd --recursive ./tests/"
+  },
+  "dependencies": {
+    "conventional-recommended-bump": "9.0.0",
+    "git-semver-tags": "^7.0.1",
+    "minimist": "^1.2.8",
+    "semver": "^7.5.4"
+  },
+  "devDependencies": {
+    "chai": "^4.4.1",
+    "chai-as-promised": "^7.1.1",
+    "eslint": "^8.29.0",
+    "eslint-plugin-editorconfig": "^4.0.2",
+    "mocha": "^10.2.0",
+    "shelljs": "^0.8.5"
+  }
+}

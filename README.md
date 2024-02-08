@@ -1,81 +1,142 @@
-# Version Bumper</br>[![docker-version]][0] [![docker-pulls]][0]
+# Version Bumper<br/>[![docker-version-badge]][docker-image] [![npm-version-badge]][npm-package]
 
-[![license-badge]][1] [![gh-build-status]][2]
+A Node.js executable package determining [semantic version][semver-spec] bumps based on the
+[conventional commits spec][conventional-commits].
 
-Containerized scripts for determining the next semantic version for</br>
-a git repository based on existing tags and [conventional commits][3].
+> See also [version-bumper-action][version-bumper-action] _GitHub_ action.
 
-## Run
+<details>
+<summary>Upgrading from version 2 to 3? Click here.</summary>
+
+<h3>Version 3 introduced breaking changes</h3>
+<ul>
+
+<li>
+The output was changed from a space-delimited text to a <em>JSON</em> object:<br/>
+<ul>
+<li><strong>old</strong> <code>2.1.5 2.1.6-dev</code><br/></li>
+<li><strong>new</strong><code>{"current":"2.1.4","bump":"patch","next":"2.1.5","dev":"2.1.6-dev"}</code></li>
+</ul>
+</li>
+<br/>
+
+<li>
+Changes in the option flags:
+  <ul>
+  <li><strong>--changelog</strong> was removed. Creating a changelog file is no longer supported.</li>
+  <li><strong>--outputtype</strong> was removed. Output to file is no longer supported.</li>
+  <li><strong>--preset</strong> was removed. Selecting a preset is no longer supported.</li>
+  <li><strong>--repopath</strong> was changed to <strong>--repo</strong> (<em>repopath</em> will eventually be removed).</li>
+  <li><strong>--bumpoverride</strong> was changed to <strong>--bump</strong> (<em>bumpoverride</em> will eventually be removed).
+  </li>
+  </ul>
+
+For more info, run the tool with the <em>-h</em> flag (<em>--help</em>).
+</li>
+<br/>
+
+<li>Changes in the container image mount target:
+<ul>
+<li>from <strong>/usr/share/repo</strong></li>
+<li>to <strong>/repo</strong></li>
+</ul>
+</li><br/>
+
+</ul>
+
+</details>
+
+## Usage
+
+The _version-bumper_ tool is executed using `npx` or consumed as a _standard package_.<br/>
+We also push a container image encapsulating the executable package to [docker hub][docker-image].
+
+### Automatic Bumps
+
+The following examples assume:
+  - The current working directory is a _git_ repository.
+  - The latest semver tag is _2.1.4_.
+  - Commit messages are based on the [conventional commits spec][conventional-commits].
 
 ```shell
-docker run -v $PWD:/usr/share/repo tomerfi/version-bumper:latest
+$ npx version-bumper
+
+$ docker run --rm -v $PWD:/repo tomerfi/version-bumper:latest
 ```
 
-## GitHub action
-
-If you're working git GitHub Actions,</br>
-you can use [this action][8] and automate your release workflow.
-
-## Example outcome
-
-If the latest [semantic][4] tag, in a git repository is, for instance, `2.1.6`.</br>
-The following table illustrates the outcome based on the required bump,</br>
-identified by [conventional][3] commit messages:
-
-| Required bump | Outcome         |
-| ------------- | --------------- |
-| major         | 3.0.0 3.0.1.dev |
-| minor         | 2.2.0 2.2.1.dev |
-| patch         | 2.1.7 2.1.8.dev |
-
-> Tip: split the outcome using the space char to separate</br>the next version from the next development iteration.
-
-## Options
-
-Add the following flags for granular control:
-
-| Flag           | Function                                               | Default               |
-| -------------- | ------------------------------------------------------ | --------------------- |
-| --changelog    | also create a changelog-x.y.z.md file.                 | `false`               |
-| --label        | set the label for the development iteration.           | `.dev`                |
-| --preset       | set the preset for the changelog file.                 | `conventionalcommits` |
-| --outputtype   | the output type of the outcome, `stdout`/`file`.       | `stdout`              |
-| --repopath     | the git repository path.                               | `/usr/share/repo`     |
-| --bumpoverride | override the bump type, `auto`/`major`/`minor`/`patch` | `auto`                |
-
-> Note: the `--outputtype file` option will produce a file in your repository named `version-bumper-output`.
-
-Installed presets:
-
-- [angular][9]
-- [atom][10]
-- [codemirror][11]
-- [conventionalcommits][12]
-- [ember][13]
-- [eslint][14]
-- [express][15]
-- [jquery][16]
-- [jshint][17]
-
-### Example fully configured run
+<details>
+<summary><em>podman</em> users? Click here.</summary>
 
 ```shell
-docker run -v $PWD:/usr/share/repo tomerfi/version-bumper:latest \
---changelog true --label .dev --preset conventionalcommits --outputtype stdout --bumpoverride auto
+$ podman run --privileged --rm -v $PWD:/repo:ro docker.io/tomerfi/version-bumper:latest
 ```
 
-> Tip: other than `conventionalcommits`, possible preset values can be found [here][5].
+</details>
 
-## Contributing
 
-The contributing guidelines are [here][6]
+For commits with a _fix_ type, the output of the above commands will be:
 
-## Code of Conduct
+```json
+{"current":"2.1.4","bump":"patch","next":"2.1.5","dev":"2.1.6-dev"}
+```
 
-The code of conduct is [here][7]
+For commits with a _feat_ type, the output of the above commands will be:
 
-## Contributors [![all-contributors]][18]
-<!-- editorconfig-checker-disable -->
+```json
+{"current":"2.1.4","bump":"minor","next":"2.2.0","dev":"2.2.1-dev"}
+```
+
+For commits containing the text _BREAKING CHANGE_ in their body, the output of the above commands will be:
+
+```json
+{"current":"2.1.4","bump":"major","next":"3.0.0","dev":"3.0.1-dev"}
+```
+
+### Manual Bumps
+
+Occasionally, we may want to use this only for bumps; no _git_ repository is required.
+
+```shell
+$ npx version-bumper -s 2.1.4 -b patch
+
+$ docker run --rm tomerfi/version-bumper:latest -s 2.1.4 -b patch
+
+{"current":"2.1.4","bump":"patch","next":"2.1.5","dev":"2.1.6-dev"}
+```
+
+```shell
+$ npx version-bumper -s 2.1.4 -b minor
+
+$ docker run --rm tomerfi/version-bumper:latest -s 2.1.4 -b minor
+
+{"current":"2.1.4","bump":"minor","next":"2.2.0","dev":"2.2.1-dev"}
+```
+
+```shell
+$ npx version-bumper -s 2.1.4 -b major
+
+$ docker run --rm tomerfi/version-bumper:latest -s 2.1.4 -b major
+
+{"current":"2.1.4","bump":"major","next":"3.0.0","dev":"3.0.1-dev"}
+```
+
+### JS Module
+
+```js
+const bumper = require('version-bumper')
+
+// prints { current: '2.1.4', bump: 'patch', next: '2.1.5', dev: '2.1.5-dev' }
+bumper({source: "2.1.4", bump: 'patch'}).then(bump => console.log(bump))
+
+// prints { current: '2.1.4', bump: 'minor', next: '2.2.0', dev: '2.2.1-dev' }
+bumper({source: "2.1.4", bump: 'minor'}).then(bump => console.log(bump))
+
+// prints { current: '2.1.4', bump: 'major', next: '3.0.0', dev: '3.0.1-alpha1' }
+bumper({source: "2.1.4", bump: 'minor', label: '-alpha1'}).then(bump => console.log(bump))
+```
+
+## Contributors [![all-contributors-badge]][all-contributors]
+
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
@@ -93,31 +154,17 @@ The code of conduct is [here][7]
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-<!-- editorconfig-checker-disable -->
+Contributing guidelines are [here][contributing_md].
+
 <!-- Real Links -->
-[0]: https://hub.docker.com/r/tomerfi/version-bumper
-[1]: https://github.com/TomerFi/version-bumper
-[2]: https://github.com/TomerFi/version-bumper/actions/workflows/stage.yml
-[3]: https://conventionalcommits.org
-[4]: https://semver.org/
-[5]: https://github.com/conventional-changelog/conventional-changelog/blob/master/packages/conventional-changelog-cli/cli.js
-[6]: https://github.com/TomerFi/version-bumper/blob/dev/CONTRIBUTING.md
-[7]: https://github.com/TomerFi/version-bumper/blob/dev/.github/CODE_OF_CONDUCT.md
-[8]: https://github.com/marketplace/actions/version-bumper-action
-[9]: https://www.npmjs.com/package/conventional-changelog-angular
-[10]: https://www.npmjs.com/package/conventional-changelog-atom
-[11]: https://www.npmjs.com/package/conventional-changelog-codemirror
-[12]: https://www.npmjs.com/package/conventional-changelog-conventionalcommits
-[13]: https://www.npmjs.com/package/conventional-changelog-ember
-[14]: https://www.npmjs.com/package/conventional-changelog-eslint
-[15]: https://www.npmjs.com/package/conventional-changelog-express
-[16]: https://www.npmjs.com/package/conventional-changelog-jquery
-[17]: https://www.npmjs.com/package/conventional-changelog-jshint
-[18]: https://allcontributors.org/
+[docker-image]: https://hub.docker.com/r/tomerfi/version-bumper
+[npm-package]: https://www.npmjs.com/package/version-bumper
+[conventional-commits]: https://conventionalcommits.org
+[semver-spec]: https://semver.org/
+[contributing_md]: https://github.com/TomerFi/version-bumper/blob/dev/CONTRIBUTING.md
+[version-bumper-action]: https://github.com/marketplace/actions/version-bumper-action
+[all-contributors]: https://allcontributors.org/
 <!-- Badges Links -->
-[all-contributors]: https://img.shields.io/github/all-contributors/tomerfi/version-bumper?color=ee8449&style=flat-square
-[docker-pulls]: https://img.shields.io/docker/pulls/tomerfi/version-bumper.svg?logo=docker&label=pulls
-[docker-version]: https://img.shields.io/docker/v/tomerfi/version-bumper?color=%230A6799&logo=docker
-[gh-build-status]: https://github.com/TomerFi/version-bumper/actions/workflows/stage.yml/badge.svg
-[license-badge]: https://img.shields.io/github/license/tomerfi/version-bumper
-<!-- editorconfig-checker-enable -->
+[all-contributors-badge]: https://img.shields.io/github/all-contributors/tomerfi/version-bumper?style=plastic&label=%20&color=b7b1e3
+[docker-version-badge]: https://img.shields.io/docker/v/tomerfi/version-bumper?style=social&logo=docker&label=%20
+[npm-version-badge]: https://img.shields.io/npm/v/version-bumper?style=social&logo=npm&label=%20
