@@ -40,7 +40,7 @@
     "conventional-recommended-bump": "9.0.0",
     "git-semver-tags": "^7.0.1",
     "minimist": "^1.2.8",
-    "semver": "^7.5.4"
+    "semver": "^7.6.0"
   },
   "devDependencies": {
     "chai": "^4.4.1",
