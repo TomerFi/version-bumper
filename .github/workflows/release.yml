@@ -51,7 +51,7 @@ jobs:
 
       - name: Decide new version
         id: bump
-        run: echo "version=$(node src/cli.js | jq '.next' | tr -d '"')" >> "$GITHUB_OUTPUT"
+        run: echo "version=$(node src/cli.js | jq '.next')" >> "$GITHUB_OUTPUT"
 
       - name: Update package version
         run: npm version ${{ steps.bump.outputs.version }} --no-git-tag-version
