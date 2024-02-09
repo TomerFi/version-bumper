@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       title:
-        description: "Release title"
+        description: "Release title (blank for tag)"
         required: false
 
 jobs:
@@ -25,6 +25,7 @@ jobs:
         with:
           node-version: 20
           cache: npm
+          registry-url: "https://registry.npmjs.org"
 
       - name: Configure git
         run: |
@@ -50,7 +51,7 @@ jobs:
 
       - name: Decide new version
         id: bump
-        run: echo "version=$(node src/cli.js | jq '.next')" >> "$GITHUB_OUTPUT"
+        run: echo "version=$(node src/cli.js | jq '.next' | tr -d '"')" >> "$GITHUB_OUTPUT"
 
       - name: Update package version
         run: npm version ${{ steps.bump.outputs.version }} --no-git-tag-version
@@ -60,17 +61,6 @@ jobs:
           git add package.json package-lock.json
           git commit -m "build: updated package with ${{ steps.bump.outputs.version }} [skip ci]"
           git push
-
-      - name: Push new tag
-        run: |
-          git tag ${{ steps.bump.outputs.version }} -m "${{ steps.bump.outputs.version }}"
-          git push origin ${{ steps.bump.outputs.version }}
-
-      - name: Extract meta for image
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: tomerfi/version-bumper
 
       - name: Set a release name
         id: release_name
@@ -99,6 +89,14 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish
+
+      - name: Extract meta for image
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: tomerfi/version-bumper
+          labels: |
+            org.opencontainers.image.version=${{ steps.bump.outputs.version }}
 
       - name: Push image
         uses: docker/build-push-action@v5
