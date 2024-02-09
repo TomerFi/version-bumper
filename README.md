@@ -59,7 +59,7 @@ The following examples assume:
   - Commit messages are based on the [conventional commits spec][conventional-commits].
 
 ```shell
-$ npx version-bumper
+$ npx @tomerfi/version-bumper
 
 $ docker run --rm -v $PWD:/repo tomerfi/version-bumper:latest
 ```
@@ -97,7 +97,7 @@ For commits containing the text _BREAKING CHANGE_ in their body, the output of t
 Occasionally, we may want to use this only for bumps; no _git_ repository is required.
 
 ```shell
-$ npx version-bumper -s 2.1.4 -b patch
+$ npx @tomerfi/version-bumper -s 2.1.4 -b patch
 
 $ docker run --rm tomerfi/version-bumper:latest -s 2.1.4 -b patch
 
@@ -105,7 +105,7 @@ $ docker run --rm tomerfi/version-bumper:latest -s 2.1.4 -b patch
 ```
 
 ```shell
-$ npx version-bumper -s 2.1.4 -b minor
+$ npx @tomerfi/version-bumper -s 2.1.4 -b minor
 
 $ docker run --rm tomerfi/version-bumper:latest -s 2.1.4 -b minor
 
@@ -113,7 +113,7 @@ $ docker run --rm tomerfi/version-bumper:latest -s 2.1.4 -b minor
 ```
 
 ```shell
-$ npx version-bumper -s 2.1.4 -b major
+$ npx @tomerfi/version-bumper -s 2.1.4 -b major
 
 $ docker run --rm tomerfi/version-bumper:latest -s 2.1.4 -b major
 
@@ -123,7 +123,7 @@ $ docker run --rm tomerfi/version-bumper:latest -s 2.1.4 -b major
 ### JS Module
 
 ```js
-const bumper = require('version-bumper')
+const bumper = require('@tomerfi/version-bumper')
 
 // prints { current: '2.1.4', bump: 'patch', next: '2.1.5', dev: '2.1.5-dev' }
 bumper({source: "2.1.4", bump: 'patch'}).then(bump => console.log(bump))

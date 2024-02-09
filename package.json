@@ -1,5 +1,5 @@
 {
-  "name": "version-bumper",
+  "name": "@tomerfi/version-bumper",
   "version": "2.1.2",
   "description": "A Node.js executable package determining semantic version bumps based on the conventional commits spec.",
   "homepage": "https://github.com/TomerFi/version-bumper#readme",

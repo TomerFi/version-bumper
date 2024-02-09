@@ -51,7 +51,7 @@ jobs:
 
       - name: Decide new version
         id: bump
-        run: echo "version=$(node src/cli.js | jq '.next')" >> "$GITHUB_OUTPUT"
+        run: echo "version=$(node src/cli.js | jq '.next' | tr -d '"')" >> "$GITHUB_OUTPUT"
 
       - name: Update package version
         run: npm version ${{ steps.bump.outputs.version }} --no-git-tag-version
@@ -67,7 +67,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            var retval = ${{ steps.bump.outputs.version }}
+            var retval = '${{ steps.bump.outputs.version }}'
             if ('${{ github.event.inputs.title }}') {
               retval = retval.concat(' - ${{ github.event.inputs.title }}')
             }
@@ -88,7 +88,7 @@ jobs:
       - name: Publish package
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish
+        run: npm publish --access=public
 
       - name: Extract meta for image
         id: meta
