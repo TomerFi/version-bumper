@@ -1,6 +1,6 @@
 {
   "name": "@tomerfi/version-bumper",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A Node.js executable package determining semantic version bumps based on the conventional commits spec.",
   "homepage": "https://github.com/TomerFi/version-bumper#readme",
   "license": "ISC",
