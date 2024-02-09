@@ -158,7 +158,7 @@ Contributing guidelines are [here][contributing_md].
 
 <!-- Real Links -->
 [docker-image]: https://hub.docker.com/r/tomerfi/version-bumper
-[npm-package]: https://www.npmjs.com/package/version-bumper
+[npm-package]: https://www.npmjs.com/package/@tomerfi/version-bumper
 [conventional-commits]: https://conventionalcommits.org
 [semver-spec]: https://semver.org/
 [contributing_md]: https://github.com/TomerFi/version-bumper/blob/dev/CONTRIBUTING.md
@@ -167,4 +167,4 @@ Contributing guidelines are [here][contributing_md].
 <!-- Badges Links -->
 [all-contributors-badge]: https://img.shields.io/github/all-contributors/tomerfi/version-bumper?style=plastic&label=%20&color=b7b1e3
 [docker-version-badge]: https://img.shields.io/docker/v/tomerfi/version-bumper?style=social&logo=docker&label=%20
-[npm-version-badge]: https://img.shields.io/npm/v/version-bumper?style=social&logo=npm&label=%20
+[npm-version-badge]: https://img.shields.io/npm/v/@tomerfi/version-bumper?style=social&logo=npm&label=%20
