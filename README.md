@@ -30,7 +30,6 @@ Changes in the option flags:
   <li><strong>--bumpoverride</strong> was changed to <strong>--bump</strong> (<em>bumpoverride</em> will eventually be removed).
   </li>
   </ul>
-
 For more info, run the tool with the <em>-h</em> flag (<em>--help</em>).
 </li>
 <br/>
@@ -40,9 +39,15 @@ For more info, run the tool with the <em>-h</em> flag (<em>--help</em>).
 <li>from <strong>/usr/share/repo</strong></li>
 <li>to <strong>/repo</strong></li>
 </ul>
-</li><br/>
-
+</li>
 </ul>
+
+```shell
+# old v2 run command
+docker run --rm -v $PWD:/usr/share/repo tomerfi/version-bumper:latest --repopath /path/to/git --bumpoverride major
+# new v3 run command
+docker run --rm -v $PWD:/repo tomerfi/version-bumper:latest --repo /path/to/git --bump major
+```
 
 </details>
 
