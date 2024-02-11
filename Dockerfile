@@ -1,7 +1,6 @@
 FROM node:21.6.1-bullseye-slim
 
-RUN --mount=type=cache,target=/var/cache/apt \
-    apt update && apt install -y git && rm -rf /var/lib/apt/lists/*
+RUN apt update && apt install -y git && rm -rf /var/lib/apt/lists/*
 
 USER node
 
