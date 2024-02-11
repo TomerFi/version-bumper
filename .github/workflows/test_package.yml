@@ -1,0 +1,29 @@
+---
+name: Test and Build Package
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        node: ['20', 'latest']
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    name: "Test project { os: ${{ matrix.os }}, node: ${{ matrix.node }} }"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      # required for testing
+      - run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+
