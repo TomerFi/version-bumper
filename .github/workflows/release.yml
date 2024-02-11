@@ -7,6 +7,10 @@ on:
       title:
         description: "Release title (blank for tag)"
         required: false
+      dry-run:
+        description: "Dry run mode"
+        required: false
+        default: false
 
 jobs:
   release:
@@ -57,6 +61,7 @@ jobs:
         run: npm version ${{ steps.bump.outputs.version }} --no-git-tag-version
 
       - name: Push new version
+        if: github.event.inputs.dry-run != 'true'
         run: |
           git add package.json package-lock.json
           git commit -m "build: updated package with ${{ steps.bump.outputs.version }} [skip ci]"
@@ -74,6 +79,7 @@ jobs:
             core.setOutput('value', retval)
 
       - name: Create a release
+        if: github.event.inputs.dry-run != 'true'
         uses: actions/github-script@v7
         with:
           script: |
@@ -86,6 +92,7 @@ jobs:
             core.setOutput('html_url', response.data.html_url)
 
       - name: Publish package
+        if: github.event.inputs.dry-run != 'true'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish --access=public
@@ -102,7 +109,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: true
+          push: ${{ github.event.inputs.dry-run != 'true' }}
           platforms: ${{ vars.PLATFORMS }}
           tags: |
             tomerfi/version-bumper:latest
@@ -112,6 +119,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Update image description on docker hub
+        if: github.event.inputs.dry-run != 'true'
         uses: peter-evans/dockerhub-description@v4
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
