@@ -1,0 +1,26 @@
+---
+name: Build and Test Image
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    name: Test container image
+    env:
+      TESTING_TAG: tomerfi/version-bumper:testing
+    steps:
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v5
+        with:
+          tags: ${{ env.TESTING_TAG }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          load: true
+      - name: Test image run
+        run: |
+          pattern='^@tomerfi/version-bumper ([0-9]\.){2}[0-9](.+)?$'
+          sut=$(docker run --rm ${{ env.TESTING_TAG }} -v)
+          [[ $sut =~ $pattern ]] || exit 1

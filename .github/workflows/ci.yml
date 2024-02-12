@@ -1,0 +1,29 @@
+---
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+    paths:
+      - src/**
+      - Dockerfile
+      - package.json
+      - package-lock.json
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  pull-requests: read
+
+jobs:
+  code:
+    uses: ./.github/workflows/test_package.yml
+  image:
+    needs: code
+    uses: ./.github/workflows/test_image.yml
