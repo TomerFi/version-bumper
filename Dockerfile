@@ -1,4 +1,4 @@
-FROM node:21.7.3-bullseye-slim
+FROM node:22.0.0-bullseye-slim
 
 RUN apt update && apt install -y git && rm -rf /var/lib/apt/lists/*
 
