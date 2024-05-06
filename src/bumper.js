@@ -25,7 +25,7 @@ async function bumper(opts) {
     // if source is 'git', verify the source is a git working tree
     try {
       execSync('git rev-parse --is-inside-work-tree', {cwd: `${opts.path}`, stdio: 'pipe'})
-    } catch (err) {
+    } catch (err) { /* eslint-disable-line no-unused-vars */
       throw new Error(`${opts.path} is not a git repository`)
     }
   } else {
