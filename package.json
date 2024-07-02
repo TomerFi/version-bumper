@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "conventional-recommended-bump": "9.0.0",
-    "git-semver-tags": "^7.0.1",
+    "git-semver-tags": "^8.0.0",
     "minimist": "^1.2.8",
     "semver": "^7.6.0"
   },
