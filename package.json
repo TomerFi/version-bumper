@@ -35,7 +35,7 @@
     "test": "mocha --check-leaks --fail-zero --color --ui tdd --recursive ./tests/"
   },
   "dependencies": {
-    "conventional-recommended-bump": "9.0.0",
+    "conventional-recommended-bump": "10.0.0",
     "git-semver-tags": "^7.0.1",
     "minimist": "^1.2.8",
     "semver": "^7.6.0"
