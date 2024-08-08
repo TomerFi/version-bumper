@@ -4,6 +4,9 @@ import * as semver from 'semver'
 import * as fs from 'node:fs'
 import { execSync } from 'child_process'
 
+// required for esbuild in gh action
+import _ from 'conventional-changelog-conventionalcommits' // eslint-disable-line no-unused-vars
+
 const bumpTypes = ['major', 'minor', 'patch']
 
 /**
