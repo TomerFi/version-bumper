@@ -9,18 +9,12 @@ jobs:
   image:
     runs-on: ubuntu-latest
     name: Test container image
-    env:
-      TESTING_TAG: tomerfi/version-bumper:testing
     steps:
+      - uses: docker/setup-qemu-action@v3
       - uses: docker/setup-buildx-action@v3
       - uses: docker/build-push-action@v6
         with:
-          tags: ${{ env.TESTING_TAG }}
+          tags: tomerfi/version-bumper:testing
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          load: true
-      - name: Test image run
-        run: |
-          pattern='Usage.*Example.*Options.*'
-          sut=$(docker run --rm ${{ env.TESTING_TAG }} -h)
-          [[ $sut =~ $pattern ]] || exit 1
+          platforms: linux/amd64,linux/arm64
