@@ -9,6 +9,8 @@
  * @param {{source: string, path: string, bump: string, label: string}} opts options to configure bumper
  * @returns {Promise<{current: string, bump: string, next: string, dev: string}>}
  */
-module.exports = async function (opts) {
-  return require('./bumper')({source: 'git', path: './', bump: 'auto', label: '-dev', ...opts})
+import { bumper } from "./bumper.js"
+
+export default async function (opts) {
+  return bumper({source: 'git', path: './', bump: 'auto', label: '-dev', ...opts})
 }

@@ -125,10 +125,10 @@ $ docker run --rm tomerfi/version-bumper:latest -s 2.1.4 -b major
 {"current":"2.1.4","bump":"major","next":"3.0.0","dev":"3.0.1-dev"}
 ```
 
-### JS Module
+### ES Module
 
 ```js
-const bumper = require('@tomerfi/version-bumper')
+import { bumper } from '@tomerfi/version-bumper'
 
 // prints { current: '2.1.4', bump: 'patch', next: '2.1.5', dev: '2.1.5-dev' }
 bumper({source: "2.1.4", bump: 'patch'}).then(bump => console.log(bump))

@@ -20,12 +20,15 @@
     "cli",
     "conventional commits"
   ],
-  "bin": "src/cli.js",
+  "bin": {
+    "version-bumper": "src/cli.js"
+  },
   "main": "src/index.js",
   "files": [
     "!*",
     "src/bumper.js"
   ],
+  "type": "module",
   "engines": {
     "node": ">= 18.0.0",
     "npm": ">= 9.0.0"
@@ -35,15 +38,16 @@
     "test": "mocha --check-leaks --fail-zero --color --ui tdd --recursive ./tests/"
   },
   "dependencies": {
-    "conventional-recommended-bump": "9.0.0",
-    "git-semver-tags": "^7.0.1",
+    "conventional-recommended-bump": "10.0.0",
+    "conventional-changelog-conventionalcommits": "^8.0.0",
+    "git-semver-tags": "^8.0.0",
     "minimist": "^1.2.8",
     "semver": "^7.6.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.2.0",
     "chai": "^4.4.1",
-    "chai-as-promised": "^7.1.1",
+    "chai-as-promised": "^8.0.0",
     "eslint": "^9.1.1",
     "globals": "^15.1.0",
     "mocha": "^10.3.0",
