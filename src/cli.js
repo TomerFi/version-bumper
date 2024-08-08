@@ -2,8 +2,11 @@
 
 /** Entrypoint for the execution of the bumper function. */
 
+import minimist from 'minimist'
+import { bumper } from './bumper.js'
+
 /** Configuring options for the CLI execution. */
-const opts = require('minimist')(process.argv.slice(2), {
+const opts = minimist(process.argv.slice(2), {
   string: ['source', 'repo', 'bump', 'label'],
   boolean: ['version', 'help'],
   alias: {
@@ -45,25 +48,18 @@ function help() {
      -r, --repo         When source is 'git', path of the git repository. Defaults to './'. Overrides first argument.
      -b, --bump         Target bump, 'major' | 'minor' | 'patch' | 'auto'. Defaults to 'auto' which can only be used with a 'git' source.
      -l, --label        Development iteration build label. Defaults to '-dev'.
-     -v, --version      Print the tool version.
      -h, --help         Show this help message.
   `)
 }
 
-function version() {
-  let pkgJsn = require('../package.json');
-  console.log(`${pkgJsn.name} ${pkgJsn.version}`);
-}
-
 if (opts.help) {
   help();
-} else if (opts.version) {
-  version();
 } else {
   // backward compatibility || preferred || default
   let path = opts.repo || opts._[0] || './'
-  require('./bumper.js')({path: path,  ...opts})
-    .then(o => console.log(JSON.stringify(o)))
+  let output = await bumper({path: path,  ...opts})
+  console.log(JSON.stringify(output))
+  process.exit()
 }
 
 
