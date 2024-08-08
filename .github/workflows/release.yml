@@ -9,8 +9,12 @@ on:
         required: false
       dry-run:
         description: "Dry run mode"
-        required: false
         default: false
+        required: true
+      bump:
+        description: "Bump type (major/minor/patch/auto)"
+        default: "auto"
+        required: true
 
 jobs:
   release:
@@ -36,6 +40,9 @@ jobs:
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
       - name: Setup docker buildx
         uses: docker/setup-buildx-action@v3
 
@@ -50,7 +57,7 @@ jobs:
 
       - name: Decide new version
         id: bump
-        run: echo "version=$(node src/cli.js | jq '.next' | tr -d '"')" >> "$GITHUB_OUTPUT"
+        run: echo "version=$(node src/cli.js -b ${{ github.event.inputs.bump }} | jq '.next' | tr -d '"')" >> "$GITHUB_OUTPUT"
 
       - name: Update package version
         run: npm version ${{ steps.bump.outputs.version }} --no-git-tag-version
@@ -111,6 +118,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/amd64,linux/arm64
 
       - name: Update image description on docker hub
         if: github.event.inputs.dry-run != 'true'
