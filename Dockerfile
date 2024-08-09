@@ -1,4 +1,4 @@
-FROM node:20.16.0-slim
+FROM node:22.6.0-slim
 
 RUN apt update && apt install -y git && rm -rf /var/lib/apt/lists/*
 
