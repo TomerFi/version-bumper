@@ -127,3 +127,18 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: tomerfi/version-bumper
+
+      - name: Dispatch release event
+        if: github.repository == 'TomerFi/version-bumper'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.ACTION_REPO_PAT }}
+          script: |
+            await github.rest.repos.createDispatchEvent({
+              owner: "TomerFi",
+              repo: "version-bumper-action",
+              event_type: "new-version-bumper-released",
+              client_payload: {
+                "release": "${{ steps.bump.outputs.version }}"
+              }
+            })
