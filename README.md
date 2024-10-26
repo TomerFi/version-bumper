@@ -140,27 +140,6 @@ bumper({source: "2.1.4", bump: 'minor'}).then(bump => console.log(bump))
 bumper({source: "2.1.4", bump: 'minor', label: '-alpha1'}).then(bump => console.log(bump))
 ```
 
-## Contributors [![all-contributors-badge]][all-contributors]
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tbody>
-    <tr>
-      <td align="center"><a href="https://github.com/MisterTimn"><img src="https://avatars.githubusercontent.com/u/4209558?v=4?s=100" width="100px;" alt="Jasper Vaneessen"/><br /><sub><b>Jasper Vaneessen</b></sub></a><br /><a href="https://github.com/TomerFi/version-bumper/commits?author=MisterTimn" title="Code">💻</a></td>
-      <td align="center"><a href="https://github.com/AlexNDRmac"><img src="https://avatars.githubusercontent.com/u/29776808?v=4?s=100" width="100px;" alt="Oleksandr Andriiako"/><br /><sub><b>Oleksandr Andriiako</b></sub></a><br /><a href="#infra-AlexNDRmac" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-Contributing guidelines are [here][contributing_md].
-
 <!-- Real Links -->
 [docker-image]: https://hub.docker.com/r/tomerfi/version-bumper
 [npm-package]: https://www.npmjs.com/package/@tomerfi/version-bumper
@@ -168,8 +147,6 @@ Contributing guidelines are [here][contributing_md].
 [semver-spec]: https://semver.org/
 [contributing_md]: https://github.com/TomerFi/version-bumper/blob/dev/CONTRIBUTING.md
 [version-bumper-action]: https://github.com/marketplace/actions/version-bumper-action
-[all-contributors]: https://allcontributors.org/
 <!-- Badges Links -->
-[all-contributors-badge]: https://img.shields.io/github/all-contributors/tomerfi/version-bumper?style=plastic&label=%20&color=b7b1e3
 [docker-version-badge]: https://img.shields.io/docker/v/tomerfi/version-bumper?style=social&logo=docker&label=%20
 [npm-version-badge]: https://img.shields.io/npm/v/@tomerfi/version-bumper?style=social&logo=npm&label=%20
