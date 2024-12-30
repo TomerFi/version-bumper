@@ -9,7 +9,7 @@ updates:
       - "type: dependencies"
     commit-message:
       prefix: "ci"
-      include: "scope"
+    rebase-strategy: disabled
     assignees:
       - "tomerfi"
 
@@ -21,7 +21,7 @@ updates:
       - "type: dependencies"
     commit-message:
       prefix: "build"
-      include: "scope"
+    rebase-strategy: disabled
     assignees:
       - "tomerfi"
 
@@ -34,5 +34,7 @@ updates:
     commit-message:
       prefix: "build"
       include: "scope"
+    rebase-strategy: disabled
+    versioning-strategy: increase-if-necessary
     assignees:
       - "tomerfi"
