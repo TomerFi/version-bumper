@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "conventional-recommended-bump": "11.1.0",
-    "conventional-changelog-conventionalcommits": "^8.0.0",
+    "conventional-changelog-conventionalcommits": "^9.0.0",
     "git-semver-tags": "^8.0.0",
     "minimist": "^1.2.8",
     "semver": "^7.6.0"
