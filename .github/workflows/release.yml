@@ -71,7 +71,7 @@ jobs:
 
       - name: Set a release name
         id: release_name
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             var retval = '${{ steps.bump.outputs.version }}'
@@ -82,7 +82,7 @@ jobs:
 
       - name: Create a release
         if: github.event.inputs.dry-run != 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const repo_name = context.payload.repository.full_name
@@ -130,7 +130,7 @@ jobs:
 
       - name: Dispatch release event
         if: github.repository == 'TomerFi/version-bumper'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.ACTION_REPO_PAT }}
           script: |
