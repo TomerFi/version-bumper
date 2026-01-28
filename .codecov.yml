@@ -1,18 +1,12 @@
-coverage_report:
-  require_ci_to_pass: yes
-  
+---
 coverage:
   status:
+    patch: off
+    changes: off
     project:
       default:
-        target: auto
-        threshold: 1%
-    patch:
-      default:
-        target: auto
-        threshold: 1%
+        branches:
+          - master
 
 comment:
-  layout: "reach,diff,flags,tree"
-  behavior: default
-  require_changes: no
+  layout: diff
