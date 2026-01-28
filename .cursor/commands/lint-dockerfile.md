@@ -7,7 +7,7 @@ Run hadolint on Dockerfile:
 
 ```bash
 CONTAINER_CMD=$(command -v podman 2>/dev/null || echo docker)
-$CONTAINER_CMD run --rm -i ghcr.io/hadolint/hadolint < Dockerfile
+cat Dockerfile | $CONTAINER_CMD run --rm -i ghcr.io/hadolint/hadolint hadolint -
 ```
 
 Or if you have hadolint installed locally:
