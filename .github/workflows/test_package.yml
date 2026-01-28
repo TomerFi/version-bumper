@@ -3,6 +3,9 @@ name: Test and Build Package
 
 on:
   workflow_call:
+    secrets:
+      CODECOV_TOKEN:
+        required: true
   workflow_dispatch:
 
 jobs:

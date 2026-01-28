@@ -26,6 +26,7 @@ permissions:
 jobs:
   code:
     uses: ./.github/workflows/test_package.yml
+    secrets: inherit
   image:
     needs: code
     uses: ./.github/workflows/test_image.yml
