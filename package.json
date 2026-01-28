@@ -35,8 +35,8 @@
   },
   "scripts": {
     "lint": "eslint src",
-    "test": "c8 mocha --check-leaks --fail-zero --color --ui tdd --recursive ./tests/",
-    "test:coverage": "c8 --reporter=lcov --reporter=text mocha --check-leaks --fail-zero --color --ui tdd --recursive ./tests/"
+    "test": "mocha --check-leaks --fail-zero --color --ui tdd --recursive ./tests/",
+    "test:coverage": "c8 mocha --check-leaks --fail-zero --color --ui tdd --recursive ./tests/"
   },
   "dependencies": {
     "conventional-changelog-conventionalcommits": "^9.0.0",
