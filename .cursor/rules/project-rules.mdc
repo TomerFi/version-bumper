@@ -22,7 +22,7 @@ alwaysApply: true
 - Conventional commits for PR titles (feat:, fix:, docs:, chore:)
 - Always squash merge PRs
 - GPG sign all commits
-- CodeRabbit reviews all PRs
+- NEVER push directly to master - always create feature branch and PR
 
 ## Development Tools
 - **Linting**: ESLint (eslint.config.mjs)
