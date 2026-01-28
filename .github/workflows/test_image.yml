@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Test container image
     steps:
+      - uses: actions/checkout@v6
       - uses: docker/setup-qemu-action@v3
       - uses: docker/setup-buildx-action@v3
       - uses: docker/build-push-action@v6
@@ -27,3 +28,6 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: linux/amd64,linux/arm64
+          load: true
+      - name: Smoke test
+        run: docker run --rm tomerfi/version-bumper:testing -h
