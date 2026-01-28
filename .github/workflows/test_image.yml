@@ -6,7 +6,16 @@ on:
   workflow_dispatch:
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Lint Dockerfile
+    steps:
+      - uses: actions/checkout@v6
+      - uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
   image:
+    needs: lint
     runs-on: ubuntu-latest
     name: Test container image
     steps:
