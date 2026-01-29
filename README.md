@@ -150,3 +150,4 @@ bumper({source: "2.1.4", bump: 'minor', label: '-alpha1'}).then(bump => console.
 <!-- Badges Links -->
 [docker-version-badge]: https://img.shields.io/docker/v/tomerfi/version-bumper?style=social&logo=docker&label=%20
 [npm-version-badge]: https://img.shields.io/npm/v/@tomerfi/version-bumper?style=social&logo=npm&label=%20
+# Test
