@@ -10,9 +10,11 @@ on:
       - master
     paths:
       - src/**
+      - tests/**
       - Dockerfile
       - package.json
       - package-lock.json
+      - eslint.config.mjs
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -24,6 +26,7 @@ permissions:
 jobs:
   code:
     uses: ./.github/workflows/test_package.yml
+    secrets: inherit
   image:
     needs: code
     uses: ./.github/workflows/test_image.yml

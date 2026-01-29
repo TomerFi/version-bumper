@@ -3,6 +3,9 @@ name: Test and Build Package
 
 on:
   workflow_call:
+    secrets:
+      CODECOV_TOKEN:
+        required: true
   workflow_dispatch:
 
 jobs:
@@ -25,5 +28,11 @@ jobs:
           git config --global user.email "${{ github.actor }}@users.noreply.github.com"
       - run: npm ci
       - run: npm run lint
-      - run: npm test
+      - run: npm run test:coverage
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info
+          fail_ci_if_error: true
 
