@@ -1,5 +1,5 @@
 ---
-name: hadolint
+name: lint-dockerfile
 description: Lint Dockerfile with hadolint
 ---
 
