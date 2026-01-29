@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends git && rm -rf /
 USER node
 
 WORKDIR /home/node/bumper/
+
 COPY --chown=node:node package.json package-lock.json ./
 RUN npm install
 COPY --chown=node:node src src
