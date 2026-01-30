@@ -30,4 +30,3 @@ jobs:
   image:
     needs: code
     uses: ./.github/workflows/test_image.yml
-    secrets: inherit
