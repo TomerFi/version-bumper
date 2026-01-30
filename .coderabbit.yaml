@@ -1,12 +1,9 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 ---
-language: en-US
 tone_instructions: "Be direct and concise. Focus on correctness of semver logic and conventional commit parsing."
-early_access: true
 
 reviews:
   auto_review:
-    enabled: true
     drafts: false
   path_instructions:
     - path: src/bumper.js
@@ -45,6 +42,3 @@ reviews:
         - Correct trigger conditions
         - Proper use of reusable workflows
         - Security (minimal permissions)
-
-chat:
-  auto_reply: true
