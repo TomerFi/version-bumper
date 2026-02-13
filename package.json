@@ -1,6 +1,6 @@
 {
   "name": "@tomerfi/version-bumper",
-  "version": "4.0.6",
+  "version": "4.0.7",
   "description": "A Node.js executable package determining semantic version bumps based on the conventional commits spec.",
   "homepage": "https://github.com/TomerFi/version-bumper#readme",
   "license": "ISC",
@@ -57,9 +57,17 @@
   },
   "c8": {
     "all": true,
-    "include": ["src/**/*.js"],
-    "exclude": ["tests/**"],
-    "reporter": ["text", "lcov", "html"],
+    "include": [
+      "src/**/*.js"
+    ],
+    "exclude": [
+      "tests/**"
+    ],
+    "reporter": [
+      "text",
+      "lcov",
+      "html"
+    ],
     "check-coverage": false
   }
 }
