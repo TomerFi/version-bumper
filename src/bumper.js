@@ -23,8 +23,8 @@ export async function bumper(opts) {
     // if source is 'git', verify the source is a git working tree
     try {
       execSync('git rev-parse --is-inside-work-tree', {cwd: `${opts.path}`, stdio: 'pipe'})
-    } catch (err) { /* eslint-disable-line no-unused-vars */
-      throw new Error(`${opts.path} is not a git repository`)
+    } catch (err) {
+      throw new Error(`${opts.path} is not a git repository`, { cause: err })
     }
   } else {
     // 'auto' discovery of tags requires a git repository. if source is not 'git', a bump type must be specified
