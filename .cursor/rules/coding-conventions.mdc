@@ -1,0 +1,13 @@
+---
+description: Coding conventions for version-bumper source files
+globs: "src/**/*.js"
+alwaysApply: false
+---
+
+# Coding Conventions
+
+- ES modules only — `import`/`export`, never `require`/`module.exports`
+- Async/await for all async operations
+- `minimist` for CLI argument parsing
+- `semver` package for version calculations
+- ESLint for linting (`eslint.config.mjs`), run with `npm run lint`

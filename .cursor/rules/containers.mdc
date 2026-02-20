@@ -1,0 +1,12 @@
+---
+description: Container build and Dockerfile rules
+globs: "**/Dockerfile"
+alwaysApply: false
+---
+
+# Container Rules
+
+- Use `podman`, not `docker`
+- Lint Dockerfile with hadolint (use `/lint-dockerfile` command)
+- Image base: `node:20-slim` with git installed
+- Entrypoint: `node /home/node/bumper/src/cli.js`

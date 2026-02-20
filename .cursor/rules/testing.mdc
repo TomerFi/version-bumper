@@ -1,0 +1,14 @@
+---
+description: Testing conventions for version-bumper
+globs: "tests/**"
+alwaysApply: false
+---
+
+# Testing
+
+- **Framework**: Mocha with TDD UI (`suite`/`test`, not `describe`/`it`)
+- **Assertions**: Chai with chai-as-promised
+- **Coverage**: c8 with lcov + html reporters, CodeCov integration
+- Run tests: `npm test`
+- Run with coverage: `npm run test:coverage`
+- Tests use `--check-leaks --fail-zero --recursive`
