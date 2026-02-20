@@ -1,6 +1,6 @@
 ---
 description: Container build and Dockerfile rules
-globs: "Dockerfile"
+globs: "**/Dockerfile"
 alwaysApply: false
 ---
 
