@@ -1,0 +1,13 @@
+---
+description: Available Cursor commands and agents for this project
+alwaysApply: true
+---
+
+# Cursor Tooling
+
+## Commands
+- `/image-build` — Build and test the container image with podman
+- `/lint-dockerfile` — Lint Dockerfile with hadolint
+
+## Agents
+- `smoke-tester` — Builds the container image and verifies it runs correctly

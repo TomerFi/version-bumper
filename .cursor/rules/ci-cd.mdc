@@ -1,0 +1,13 @@
+---
+description: CI/CD workflow conventions for GitHub Actions
+globs: ".github/workflows/**"
+alwaysApply: false
+---
+
+# CI/CD
+
+- GitHub Actions for CI/CD
+- Workflows: `ci.yml` (main), `test_package.yml`, `test_image.yml`, `release.yml`
+- Test matrix: Node 20 + latest, Ubuntu + macOS
+- Coverage uploaded to CodeCov
+- Use reusable workflows (`workflow_call`) where possible

@@ -1,0 +1,22 @@
+---
+description: version-bumper project overview - architecture, tech stack, key behaviors
+alwaysApply: true
+---
+
+# version-bumper
+
+Node.js CLI tool (`@tomerfi/version-bumper`) that determines semantic version bumps based on conventional commits.
+
+## Tech Stack
+- Node.js (>= 18), ES modules (`"type": "module"`)
+- `semver` for version calculations, `minimist` for CLI args
+- `conventional-recommended-bump` + `git-semver-tags` for commit analysis
+
+## Architecture
+- `src/bumper.js` — core bump logic
+- `src/cli.js` — CLI entrypoint (bin)
+- `src/index.js` — module entrypoint
+
+## Key Behaviors
+- Preserve `v` prefix if present (`v1.2.3` → `v1.2.4`)
+- Dev label must start with hyphen (`-dev`, `-alpha1`)

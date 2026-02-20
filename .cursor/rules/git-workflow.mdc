@@ -1,0 +1,11 @@
+---
+description: Git workflow rules - branching, commits, PRs
+alwaysApply: false
+---
+
+# Git Workflow
+
+- NEVER push directly to `master` — always create a feature branch and PR
+- Conventional commits for PR titles (`feat:`, `fix:`, `docs:`, `chore:`)
+- Always squash merge PRs
+- GPG sign all commits
