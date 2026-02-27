@@ -11,8 +11,9 @@ on:
 jobs:
   test:
     strategy:
+      fail-fast: false
       matrix:
-        node: ['20', 'latest']
+        node: ['20', '22', '24']
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     name: "Test project { os: ${{ matrix.os }}, node: ${{ matrix.node }} }"
@@ -35,4 +36,3 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage/lcov.info
           fail_ci_if_error: true
-
