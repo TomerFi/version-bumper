@@ -58,6 +58,9 @@
   "overrides": {
     "c8": {
       "yargs": "^18.0.0"
+    },
+    "git-semver-tags": {
+      "@conventional-changelog/git-client": "^2.0.0"
     }
   },
   "c8": {
