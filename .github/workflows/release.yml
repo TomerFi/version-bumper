@@ -110,7 +110,7 @@ jobs:
 
       - name: Extract meta for image
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: tomerfi/version-bumper
           labels: |
