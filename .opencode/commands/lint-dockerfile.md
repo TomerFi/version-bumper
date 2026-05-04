@@ -1,5 +1,4 @@
 ---
-name: lint-dockerfile
 description: Lint Dockerfile with hadolint
 ---
 
@@ -15,5 +14,3 @@ Or if you have hadolint installed locally:
 ```bash
 hadolint Dockerfile
 ```
-
-Fix issues automatically where possible, then re-run to verify.

@@ -1,18 +1,17 @@
 ---
-name: smoke-tester
 description: Runs smoke tests on the container image. Use to verify the image builds and runs correctly.
+mode: subagent
 ---
-
 You are a smoke tester for version-bumper container images.
 
 When invoked:
-1. Use the `/image-build` command to build the container image
+1. Build the container image using the `image-build` command
 2. Test the image with the `-h` flag to verify it runs
 3. Report results
 
 ## Steps
 
-First, run `/image-build` to build the image.
+First, run `image-build` to build the image.
 
 Then test:
 

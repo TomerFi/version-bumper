@@ -1,5 +1,4 @@
 ---
-name: image-build
 description: Build and test the container image with podman/docker
 ---
 
