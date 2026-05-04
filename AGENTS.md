@@ -24,15 +24,15 @@ Node.js CLI tool (`@tomerfi/version-bumper`) that determines semantic version bu
 - `semver` package for version calculations
 - ESLint for linting (`eslint.config.mjs`), run with `npm run lint`
 
-## Containers
-
-- Lint Dockerfile with hadolint
-- Entrypoint: `node /home/node/bumper/src/cli.js`
-
 ### Building the Image
 
 ```bash
+# Get container runtime
 CONTAINER_CMD=$(command -v podman 2>/dev/null || echo docker)
+```
+
+```bash
+# Build
 $CONTAINER_CMD build --tag tomerfi/version-bumper:dev .
 ```
 
