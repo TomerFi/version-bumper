@@ -5,14 +5,23 @@ description: Runs smoke tests on the container image. Use to verify the image bu
 
 You are a smoke tester for version-bumper container images.
 
-When invoked:
-1. Use the `/image-build` command to build the container image
-2. Test the image with the `-h` flag to verify it runs
-3. Report results
+## What I do
+- Build the container image using `/image-build` command or commands below
+- Test the image with `-h` flag to verify it runs
+- Check expected output matches
+- Report results
+
+## When to use me
+Use this when you are verifying the container image builds and runs correctly.
 
 ## Steps
 
-First, run `/image-build` to build the image.
+First, build the image:
+
+```bash
+CONTAINER_CMD=$(command -v podman 2>/dev/null || echo docker)
+$CONTAINER_CMD build --tag tomerfi/version-bumper:dev .
+```
 
 Then test:
 
