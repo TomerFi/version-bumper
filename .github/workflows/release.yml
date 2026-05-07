@@ -9,6 +9,7 @@ on:
         required: false
       dry-run:
         description: "Dry run mode"
+        type: boolean
         default: false
         required: true
       bump:
@@ -32,8 +33,8 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 20
-          cache: npm
           registry-url: "https://registry.npmjs.org"
+          package-manager-cache: false
 
       - name: Configure git
         run: |
@@ -104,8 +105,6 @@ jobs:
 
       - name: Publish package
         if: github.event.inputs.dry-run != 'true'
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish --access=public
 
       - name: Extract meta for image
