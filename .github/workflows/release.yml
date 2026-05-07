@@ -9,12 +9,18 @@ on:
         required: false
       dry-run:
         description: "Dry run mode"
+        type: boolean
         default: false
         required: true
       bump:
         description: "Bump type (major/minor/patch/auto)"
         default: "auto"
         required: true
+
+permissions:
+  id-token: write # npm publish
+  contents: write # git tag
+  actions: write # dispatch event
 
 jobs:
   release:
@@ -28,12 +34,12 @@ jobs:
           fetch-depth: 0
           ssh-key: ${{ secrets.DEPLOY_KEY }}
 
-      - name: Install node 20
+      - name: Install node 24
         uses: actions/setup-node@v6
         with:
-          node-version: 20
-          cache: npm
+          node-version: 24
           registry-url: "https://registry.npmjs.org"
+          package-manager-cache: false
 
       - name: Configure git
         run: |
@@ -104,8 +110,6 @@ jobs:
 
       - name: Publish package
         if: github.event.inputs.dry-run != 'true'
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish --access=public
 
       - name: Extract meta for image
