@@ -17,6 +17,11 @@ on:
         default: "auto"
         required: true
 
+permissions:
+  id-token: write # npm publish
+  contents: write # git tag
+  actions: write # dispatch event
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -29,10 +34,10 @@ jobs:
           fetch-depth: 0
           ssh-key: ${{ secrets.DEPLOY_KEY }}
 
-      - name: Install node 20
+      - name: Install node 24
         uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
           registry-url: "https://registry.npmjs.org"
           package-manager-cache: false
 
