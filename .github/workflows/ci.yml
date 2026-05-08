@@ -26,7 +26,8 @@ permissions:
 jobs:
   code:
     uses: ./.github/workflows/test_package.yml
-    secrets: inherit
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
   image:
     needs: code
     uses: ./.github/workflows/test_image.yml
