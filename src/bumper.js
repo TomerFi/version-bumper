@@ -54,7 +54,7 @@ export async function bumper(opts) {
     let bmpr = new Bumper(opts.path).loadPreset('conventionalcommits')
     bump = bumpTypes.includes(opts.bump) // if not known manual bump type, use auto type based on commits
       ? opts.bump
-      : (await bmpr.bump()).releaseType
+      : ((await bmpr.bump()).releaseType || 'patch')
 
     next = current.startsWith('v') // patch for versions that starts with v
       ? `v${semver.inc(cleanCurrent, bump)}`
