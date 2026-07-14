@@ -39,7 +39,7 @@
     "test:coverage": "c8 mocha --check-leaks --fail-zero --color --ui tdd --recursive ./tests/"
   },
   "dependencies": {
-    "conventional-changelog-conventionalcommits": "^9.0.0",
+    "conventional-changelog-conventionalcommits": "^10.2.1",
     "conventional-recommended-bump": "12.1.0",
     "git-semver-tags": "^8.0.0",
     "minimist": "^1.2.8",
