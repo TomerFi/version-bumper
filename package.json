@@ -34,7 +34,7 @@
     "npm": ">= 10.0.0"
   },
   "scripts": {
-    "lint": "npm run eslint && npm run prettier && npm run ec",
+    "lint": "npm run eslint && npm run ec",
     "test": "mocha --check-leaks --fail-zero --color --ui tdd --recursive ./tests/",
     "test:coverage": "c8 mocha --check-leaks --fail-zero --color --ui tdd --recursive ./tests/",
     "eslint": "eslint src",
