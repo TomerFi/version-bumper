@@ -1,10 +1,10 @@
----
-description: version-bumper project rules
----
-
 # version-bumper
 
 Node.js CLI tool (`@tomerfi/version-bumper`) that determines semantic version bumps based on conventional commits.
+
+## AI Policy
+
+This project has an [AI policy](AI_POLICY.md). Always read it and ensure all suggestions, code, and contributions comply. If any behavior seems to conflict with the policy, warn the user and ask for guidance.
 
 ## Architecture
 
@@ -17,45 +17,19 @@ Node.js CLI tool (`@tomerfi/version-bumper`) that determines semantic version bu
 - Preserve `v` prefix if present (`v1.2.3` → `v1.2.4`)
 - Dev label must start with hyphen (`-dev`, `-alpha1`)
 
-## Coding Conventions
+## Working Environment
 
-- Async/await for all async operations
-- `minimist` for CLI argument parsing
-- `semver` package for version calculations
-- ESLint for linting (`eslint.config.mjs`), run with `npm run lint`
+- This is a **Node.js** project. Use **`package.json`** for all dependencies and scripts.
+- This project uses [**husky**][husky] for Git hooks with [**lint-staged**][lint-staged] for file-specific checks.
+- The pre-commit hook blocks commits to `master`, verifies lock file consistency, checks assistant files are in sync via [aicfg](https://github.com/TomerFi/aicfg), and runs lint-staged on staged files.
 
-### Building the Image
-
-```bash
-# Get container runtime
-CONTAINER_CMD=$(command -v podman 2>/dev/null || echo docker)
-```
+## Linting
 
 ```bash
-# Build
-$CONTAINER_CMD build --tag tomerfi/version-bumper:dev .
-```
-
-### Testing the Image
-
-```bash
-# Basic test
-$CONTAINER_CMD run --rm tomerfi/version-bumper:dev -h
-
-# Test with a repository
-$CONTAINER_CMD run --privileged --rm -v $PWD:/repo:ro tomerfi/version-bumper:dev
-```
-
-### Linting the Dockerfile
-
-```bash
-$CONTAINER_CMD run --rm -i ghcr.io/hadolint/hadolint hadolint - < Dockerfile
-```
-
-Or if hadolint is installed locally:
-
-```bash
-hadolint Dockerfile
+npm run lint                              # lint (read-only, includes eslint, ec)
+npm run eslint                            # eslint src
+npm run eslint:fix                        # eslint --fix src
+npm run ec                                # editorconfig-checker
 ```
 
 ## Testing
@@ -67,6 +41,24 @@ hadolint Dockerfile
 - Run with coverage: `npm run test:coverage`
 - Tests use `--check-leaks --fail-zero --recursive`
 
+## Docker Image
+
+```bash
+# Build
+CONTAINER_CMD=$(command -v podman 2>/dev/null || echo docker)
+$CONTAINER_CMD build --tag tomerfi/version-bumper:dev .
+
+# Run
+$CONTAINER_CMD run --rm tomerfi/version-bumper:dev -h
+$CONTAINER_CMD run --privileged --rm -v $PWD:/repo:ro tomerfi/version-bumper:dev
+```
+
+Lint the Dockerfile:
+
+```bash
+$CONTAINER_CMD run --rm -i ghcr.io/hadolint/hadolint hadolint - < Dockerfile
+```
+
 ## Git Workflow
 
 - NEVER push directly to `master` — always create a feature branch and PR
@@ -77,3 +69,5 @@ hadolint Dockerfile
 - GitHub Actions for CI/CD
 - Coverage uploaded to CodeCov
 
+[husky]: https://typicode.github.io/husky/
+[lint-staged]: https://github.com/okonet/lint-staged

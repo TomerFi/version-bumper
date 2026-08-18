@@ -44,11 +44,11 @@ function help() {
       { current: '2.1.4', bump: 'patch', next: '2.1.5', dev: '2.1.5-dev' }
 
   Options
-     -s, --source       Source for the bump, any semver string or 'git' to fetch from tags. Defaults to 'git'.
-     -r, --repo         When source is 'git', path of the git repository. Defaults to './'. Overrides first argument.
-     -b, --bump         Target bump, 'major' | 'minor' | 'patch' | 'auto'. Defaults to 'auto' which can only be used with a 'git' source.
-     -l, --label        Development iteration build label. Defaults to '-dev'.
-     -h, --help         Show this help message.
+      -s, --source       Source for the bump, any semver string or 'git' to fetch from tags. Defaults to 'git'.
+      -r, --repo         When source is 'git', path of the git repository. Defaults to './'. Overrides first argument.
+      -b, --bump         Target bump, 'major' | 'minor' | 'patch' | 'auto'. Defaults to 'auto' which can only be used with a 'git' source.
+      -l, --label        Development iteration build label. Defaults to '-dev'.
+      -h, --help         Show this help message.
   `)
 }
 

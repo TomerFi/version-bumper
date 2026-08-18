@@ -1,4 +1,9 @@
-# Version Bumper<br/>[![docker-version-badge]][docker-image] [![npm-version-badge]][npm-package]
+# Version Bumper
+
+[![npm version](https://img.shields.io/npm/v/@tomerfi/version-bumper)](https://www.npmjs.com/package/@tomerfi/version-bumper)
+[![Docker version](https://img.shields.io/docker/v/tomerfi/version-bumper?label=Docker)](https://hub.docker.com/r/tomerfi/version-bumper)
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+[![Codecov](https://codecov.io/gh/TomerFi/version-bumper/branch/master/graph/badge.svg)](https://codecov.io/gh/TomerFi/version-bumper)
 
 A Node.js executable package determining [semantic version][semver-spec] bumps based on the
 [conventional commits spec][conventional-commits].
@@ -145,7 +150,6 @@ bumper({source: "2.1.4", bump: 'minor', label: '-alpha1'}).then(bump => console.
 [npm-package]: https://www.npmjs.com/package/@tomerfi/version-bumper
 [conventional-commits]: https://conventionalcommits.org
 [semver-spec]: https://semver.org/
-[contributing_md]: https://github.com/TomerFi/version-bumper/blob/dev/CONTRIBUTING.md
 [version-bumper-action]: https://github.com/marketplace/actions/version-bumper-action
 <!-- Badges Links -->
 [docker-version-badge]: https://img.shields.io/docker/v/tomerfi/version-bumper?style=social&logo=docker&label=%20
