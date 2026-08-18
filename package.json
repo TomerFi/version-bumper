@@ -41,6 +41,7 @@
     "eslint:fix": "eslint --fix src",
     "ec": "ec",
     "link-ai-files": "aicfg link agents --to claude-code",
+    "lint-staged": "lint-staged",
     "prepare": "husky || true"
   },
   "dependencies": {
