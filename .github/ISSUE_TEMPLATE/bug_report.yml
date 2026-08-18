@@ -1,7 +1,7 @@
 ---
 name: Bug Report
 description: File a bug report
-labels: ["type: bug"]
+labels: ["bug"]
 
 body:
   - type: markdown
@@ -12,7 +12,7 @@ body:
     id: what-happened
     attributes:
       label: What happened?
-      description: Also share, what did you expect to happen?
+      description: Also share what you expected to happen.
     validations:
       required: true
 
