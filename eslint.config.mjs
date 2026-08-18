@@ -8,7 +8,8 @@ export default [
     languageOptions: {
       sourceType: "module",
       globals: {
-        ...globals.nodeBuiltin
+        ...globals.nodeBuiltin,
+        ...globals.mocha
       }
     },
     rules: {
