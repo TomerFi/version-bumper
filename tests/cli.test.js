@@ -1,8 +1,12 @@
 import { expect } from 'chai'
+import chaiAsPromised from 'chai-as-promised'
 import { execFile } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 import shell from 'shelljs'
+import chai from 'chai'
+
+chai.use(chaiAsPromised)
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -62,31 +66,32 @@ suite('CLI entrypoint', () => {
   })
 
   test('backward compat: --repopath alias', async () => {
-    const workspace = shell.tempdir()
-    const output = await runCli(['--repopath', workspace, '-s', '1.0.0', '-b', 'patch'])
+    const workspace = join(__dirname, '..', '.test-repo')
+    shell.mkdir('-p', workspace)
+    shell.cd(workspace)
+    shell.exec('git init')
+    shell.exec('git config user.email "test@test.com"')
+    shell.exec('git config user.name "Test"')
+    shell.exec('touch file.txt')
+    shell.exec('git add .')
+    shell.exec('git commit -m "init"')
+    shell.exec('git tag -a v1.0.0 -m "v1.0.0"')
+    shell.cd('..')
+
+    const output = await runCli(['--source', 'git', '--repopath', workspace])
     const result = JSON.parse(output)
-    expect(result.bump).to.equal('patch')
+    expect(result.current).to.equal('v1.0.0')
+
+    shell.rm('-rf', workspace)
   })
 
   test('invalid semver exits with error', async () => {
-    let error
-    try {
-      await runCli(['-s', 'abc', '-b', 'minor'])
-    } catch (e) {
-      error = e
-    }
-    expect(error).to.exist
-    expect(error.message).to.include('not a valid semver')
+    await expect(runCli(['-s', 'abc', '-b', 'minor'])).to.be.rejectedWith('not a valid semver')
   })
 
   test('auto bump with string source errors', async () => {
-    let error
-    try {
-      await runCli(['-s', '1.2.3', '-b', 'auto'])
-    } catch (e) {
-      error = e
-    }
-    expect(error).to.exist
-    expect(error.message).to.include('please use major,minor,patch bump type')
+    await expect(runCli(['-s', '1.2.3', '-b', 'auto'])).to.be.rejectedWith(
+      'please use major,minor,patch bump type'
+    )
   })
 })
