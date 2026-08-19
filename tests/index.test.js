@@ -16,11 +16,11 @@ suite('Index module exports bumper', () => {
     const result = await bumper({ source: 'v1.0.0', bump: 'patch' })
     expect(result.current).to.equal('v1.0.0')
     expect(result.next).to.equal('v1.0.1')
+    expect(result.dev).to.equal('v1.0.2-dev')
   })
 
   test('accepts label override through defaults merge', async () => {
     const result = await bumper({ source: '1.0.0', bump: 'minor', label: '-alpha' })
     expect(result.dev).to.equal('1.1.1-alpha')
-    expect(result.dev).to.equal('v1.0.2-dev')
   })
 })
