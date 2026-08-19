@@ -3,14 +3,15 @@ import chaiAsPromised from 'chai-as-promised'
 import { execFile } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
-import shell from 'shelljs'
+import fs from 'node:fs'
+import os from 'node:os'
+import { execSync } from 'node:child_process'
 import chai from 'chai'
 
 chai.use(chaiAsPromised)
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
-shell.config.silent = true
 const cliPath = join(__dirname, '..', 'src', 'cli.js')
 
 function runCli(args) {
@@ -22,6 +23,16 @@ function runCli(args) {
       resolve(stdout.trim())
     })
   })
+}
+
+function setupTempGitRepo(tempDir) {
+  fs.writeFileSync(join(tempDir, 'file.txt'), '')
+  execSync('git init', { cwd: tempDir, stdio: 'pipe' })
+  execSync('git config user.email "test@test.com"', { cwd: tempDir, stdio: 'pipe' })
+  execSync('git config user.name "Test"', { cwd: tempDir, stdio: 'pipe' })
+  execSync('git add .', { cwd: tempDir, stdio: 'pipe' })
+  execSync('git commit -m "init"', { cwd: tempDir, stdio: 'pipe' })
+  execSync('git tag -a v1.0.0 -m "v1.0.0"', { cwd: tempDir, stdio: 'pipe' })
 }
 
 suite('CLI entrypoint', () => {
@@ -66,23 +77,15 @@ suite('CLI entrypoint', () => {
   })
 
   test('backward compat: --repopath alias', async () => {
-    const workspace = join(__dirname, '..', '.test-repo')
-    shell.mkdir('-p', workspace)
-    shell.cd(workspace)
-    shell.exec('git init')
-    shell.exec('git config user.email "test@test.com"')
-    shell.exec('git config user.name "Test"')
-    shell.exec('touch file.txt')
-    shell.exec('git add .')
-    shell.exec('git commit -m "init"')
-    shell.exec('git tag -a v1.0.0 -m "v1.0.0"')
-    shell.cd('..')
-
-    const output = await runCli(['--source', 'git', '--repopath', workspace])
-    const result = JSON.parse(output)
-    expect(result.current).to.equal('v1.0.0')
-
-    shell.rm('-rf', workspace)
+    const tempDir = fs.mkdtempSync(join(os.tmpdir(), 'version-bumper-test-'))
+    try {
+      setupTempGitRepo(tempDir)
+      const output = await runCli(['--source', 'git', '--repopath', tempDir])
+      const result = JSON.parse(output)
+      expect(result.current).to.equal('v1.0.0')
+    } finally {
+      fs.rmSync(tempDir, { recursive: true, force: true })
+    }
   })
 
   test('invalid semver exits with error', async () => {
