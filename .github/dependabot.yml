@@ -8,6 +8,10 @@ updates:
     commit-message:
       prefix: "ci"
     rebase-strategy: disabled
+    groups:
+      gh-actions:
+        patterns:
+          - "*"
 
   - package-ecosystem: "docker"
     directory: "/"
