@@ -23,6 +23,8 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: npm
+      - name: Set up editorconfig-checker
+        uses: editorconfig-checker/action-editorconfig-checker@840e866d93b8e032123c23bac69dece044d4d84c # v2.2.0
       # required for testing
       - run: |
           git config --global user.name "github-actions[bot]"
@@ -33,7 +35,8 @@ jobs:
         with:
           source: agents
           target: claude-code
-      - run: npm run lint
+      - run: editorconfig-checker
+      - run: npm run eslint
       - run: npm run test:coverage
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
