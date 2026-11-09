@@ -129,8 +129,7 @@ suite('Test automatic bumps', () => {
       'git add breaking_file.file',
       `git commit -m "refactor: added breaking_file.file
 
-      BREAKING CHANGE: broke stuff
-      "`
+BREAKING CHANGE: broke stuff"`
     )
 
     return expect(bumper({source: 'git', bump: 'auto', label: '-alpha1', path: minorBump}))
