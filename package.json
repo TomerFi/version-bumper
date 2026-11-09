@@ -46,10 +46,10 @@
   },
   "dependencies": {
     "conventional-changelog-conventionalcommits": "10.4.1",
-    "conventional-recommended-bump": "12.1.0",
+    "conventional-recommended-bump": "12.1.1",
     "git-semver-tags": "8.0.1",
     "minimist": "1.2.8",
-    "semver": "7.8.5"
+    "semver": "7.8.6"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
